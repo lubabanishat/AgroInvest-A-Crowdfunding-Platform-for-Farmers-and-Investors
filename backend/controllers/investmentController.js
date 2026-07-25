@@ -70,7 +70,33 @@ const investInProject = (req, res) => {
     });
   });
 };
+const getMyInvestments = (req, res) => {
+  const investorId = req.user.id;
+  const role = req.user.role;
+
+  if (role !== "investor") {
+    return res.status(403).json({
+      message: "Only investors can view their investments",
+    });
+  }
+
+  Investment.getMyInvestments(investorId, (error, investments) => {
+    if (error) {
+      console.error("Get my investments error:", error);
+
+      return res.status(500).json({
+        message: "Database error",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Investments fetched successfully",
+      investments,
+    });
+  });
+};
 
 module.exports = {
   investInProject,
+  getMyInvestments,
 };

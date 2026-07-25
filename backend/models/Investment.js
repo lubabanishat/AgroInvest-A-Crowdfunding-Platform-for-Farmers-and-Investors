@@ -33,7 +33,34 @@ const getApprovedProjectById = (projectId, callback) => {
   db.query(query, [projectId], callback);
 };
 
+const getMyInvestments = (investorId, callback) => {
+  const query = `
+    SELECT
+      i.id,
+      i.amount,
+      i.payment_status,
+      i.created_at,
+
+      p.id AS project_id,
+      p.title,
+      p.crop_type,
+      p.target_amount
+
+    FROM investments i
+
+    JOIN projects p
+      ON i.project_id = p.id
+
+    WHERE i.investor_id = ?
+
+    ORDER BY i.created_at DESC
+  `;
+
+  db.query(query, [investorId], callback);
+};
+
 module.exports = {
   createInvestment,
   getApprovedProjectById,
+  getMyInvestments,
 };
