@@ -4,6 +4,7 @@ const {
   createProject,
   uploadDocuments,
   getApprovedProjects,
+  getProjectById,
 } = require("../controllers/projectController");
 
 const verifyToken = require("../middleware/authMiddleware");
@@ -13,6 +14,9 @@ const router = express.Router();
 
 // Get All Approved Projects
 router.get("/", getApprovedProjects);
+
+// Get Single Project Details
+router.get("/:id", getProjectById);
 
 // Create Project
 router.post("/create", verifyToken, createProject);

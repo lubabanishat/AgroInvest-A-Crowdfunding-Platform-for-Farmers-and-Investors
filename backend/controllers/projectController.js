@@ -158,8 +158,34 @@ const getApprovedProjects = (req, res) => {
   });
 };
 
+const getProjectById = (req, res) => {
+  const projectId = req.params.id;
+
+  Project.getProjectById(projectId, (error, results) => {
+    if (error) {
+      console.error("Get project details error:", error);
+
+      return res.status(500).json({
+        message: "Database error",
+      });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({
+        message: "Project not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Project details fetched successfully",
+      project: results[0],
+    });
+  });
+};
+
 module.exports = {
   createProject,
   uploadDocuments,
   getApprovedProjects,
+  getProjectById,
 };

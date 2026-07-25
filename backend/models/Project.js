@@ -60,8 +60,32 @@ const getApprovedProjects = (callback) => {
 
   db.query(query, callback);
 };
+
+const getProjectById = (projectId, callback) => {
+  const query = `
+    SELECT
+      p.id,
+      p.title,
+      p.description,
+      p.crop_type,
+      p.target_amount,
+      p.deadline,
+      p.status,
+      u.full_name AS farmer_name,
+      u.email AS farmer_email
+    FROM projects p
+    JOIN users u
+      ON p.farmer_id = u.id
+    WHERE p.id = ?
+      AND p.status = 'approved'
+  `;
+
+  db.query(query, [projectId], callback);
+};
+
 module.exports = {
   createProject,
   uploadDocument,
   getApprovedProjects,
+  getProjectById,
 };
