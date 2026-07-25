@@ -7,6 +7,8 @@ const adminMiddleware = require("../middleware/adminMiddleware");
 const {
   getAdminDashboard,
   getPendingProjects,
+  approveProject,
+  rejectProject,
 } = require("../controllers/adminController");
 
 router.get(
@@ -20,6 +22,18 @@ router.get(
   verifyToken,
   adminMiddleware,
   getPendingProjects
+);
+router.put(
+  "/projects/:id/approve",
+  verifyToken,
+  adminMiddleware,
+  approveProject
+);
+router.put(
+  "/projects/:id/reject",
+  verifyToken,
+  adminMiddleware,
+  rejectProject
 );
 
 module.exports = router;

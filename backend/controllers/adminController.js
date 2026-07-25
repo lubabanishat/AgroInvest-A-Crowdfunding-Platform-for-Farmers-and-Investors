@@ -62,7 +62,122 @@ ORDER BY p.created_at DESC
   });
 };
 
+// Approve Project
+const approveProject = (req, res) => {
+  const projectId = req.params.id;
+
+  const checkQuery = "SELECT id, status FROM projects WHERE id = ?";
+
+  db.query(checkQuery, [projectId], (checkError, results) => {
+    if (checkError) {
+      console.error("Project check error:", checkError);
+
+      return res.status(500).json({
+        message: "Database error",
+      });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({
+        message: "Project not found",
+      });
+    }
+
+    if (results[0].status === "approved") {
+      return res.status(400).json({
+        message: "Project is already approved",
+      });
+    }
+
+    const updateQuery = `
+      UPDATE projects
+      SET status = 'approved'
+      WHERE id = ?
+    `;
+
+    db.query(updateQuery, [projectId], (updateError) => {
+      if (updateError) {
+        console.error("Project approval error:", updateError);
+
+        return res.status(500).json({
+          message: "Failed to approve project",
+        });
+      }
+
+      return res.status(200).json({
+        message: "Project approved successfully",
+        project_id: Number(projectId),
+        status: "approved",
+      });
+
+      if (results[0].status === "rejected") {
+      return res.status(400).json({
+      message: "Rejected projects cannot be approved",
+    });
+  }
+    });
+  });
+};
+
+// Reject Project
+const rejectProject = (req, res) => {
+  const projectId = req.params.id;
+
+  const checkQuery = "SELECT id, status FROM projects WHERE id = ?";
+
+  db.query(checkQuery, [projectId], (checkError, results) => {
+    if (checkError) {
+      console.error("Project check error:", checkError);
+
+      return res.status(500).json({
+        message: "Database error",
+      });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({
+        message: "Project not found",
+      });
+    }
+
+    if (results[0].status === "rejected") {
+      return res.status(400).json({
+        message: "Project is already rejected",
+      });
+    }
+    if (results[0].status === "approved") {
+  return res.status(400).json({
+    message: "Approved projects cannot be rejected",
+  });
+}
+
+    const updateQuery = `
+      UPDATE projects
+      SET status = 'rejected'
+      WHERE id = ?
+    `;
+
+    db.query(updateQuery, [projectId], (updateError) => {
+      if (updateError) {
+        console.error("Project rejection error:", updateError);
+
+        return res.status(500).json({
+          message: "Failed to reject project",
+        });
+      }
+
+      return res.status(200).json({
+        message: "Project rejected successfully",
+        project_id: Number(projectId),
+        status: "rejected",
+      });
+    });
+  });
+};
+
 module.exports = {
   getAdminDashboard,
   getPendingProjects,
+  approveProject,
+  rejectProject,
 };
