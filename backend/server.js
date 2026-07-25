@@ -7,6 +7,7 @@ const db = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const investmentRoutes = require("./routes/investmentRoutes");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes); 
 app.use("/api/admin", adminRoutes);
+app.use("/api/investments", investmentRoutes);
 
 app.get("/", (req, res) => {
   res.send("🚀 AgroInvest Backend Server is Running...");
