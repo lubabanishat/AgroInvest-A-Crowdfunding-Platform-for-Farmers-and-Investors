@@ -40,7 +40,28 @@ const uploadDocument = (documentData, callback) => {
   );
 };
 
+const getApprovedProjects = (callback) => {
+  const query = `
+    SELECT
+      p.id,
+      p.title,
+      p.description,
+      p.crop_type,
+      p.target_amount,
+      p.deadline,
+      p.status,
+      u.full_name AS farmer_name
+    FROM projects p
+    JOIN users u
+      ON p.farmer_id = u.id
+    WHERE p.status = 'approved'
+    ORDER BY p.created_at DESC
+  `;
+
+  db.query(query, callback);
+};
 module.exports = {
   createProject,
   uploadDocument,
+  getApprovedProjects,
 };

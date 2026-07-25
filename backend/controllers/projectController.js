@@ -141,7 +141,25 @@ const uploadDocuments = async (req, res) => {
   }
 };
 
+const getApprovedProjects = (req, res) => {
+  Project.getApprovedProjects((error, projects) => {
+    if (error) {
+      console.error("Get approved projects error:", error);
+
+      return res.status(500).json({
+        message: "Database error",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Approved projects fetched successfully",
+      projects,
+    });
+  });
+};
+
 module.exports = {
   createProject,
   uploadDocuments,
+  getApprovedProjects,
 };
