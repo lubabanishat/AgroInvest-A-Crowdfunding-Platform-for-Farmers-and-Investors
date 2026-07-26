@@ -96,9 +96,20 @@ const getInvestmentSummary = (projectId, callback) => {
   db.query(query, [projectId], callback);
 };
 
+const updatePaymentStatus = (investmentId, paymentStatus, callback) => {
+  const query = `
+    UPDATE investments
+    SET payment_status = ?
+    WHERE id = ?
+  `;
+
+  db.query(query, [paymentStatus, investmentId], callback);
+};
+
 module.exports = {
   createInvestment,
   getApprovedProjectById,
   getMyInvestments,
   getInvestmentSummary,
+  updatePaymentStatus,
 };
