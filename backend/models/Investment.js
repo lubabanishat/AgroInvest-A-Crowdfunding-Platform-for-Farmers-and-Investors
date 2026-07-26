@@ -59,8 +59,46 @@ const getMyInvestments = (investorId, callback) => {
   db.query(query, [investorId], callback);
 };
 
+const getInvestmentSummary = (projectId, callback) => {
+  const query = `
+    SELECT
+      p.id AS project_id,
+      p.title,
+      p.target_amount,
+
+      COALESCE(SUM(i.amount), 0) AS collected_amount,
+
+      (p.target_amount - COALESCE(SUM(i.amount), 0)) AS remaining_amount,
+
+      ROUND(
+        (COALESCE(SUM(i.amount), 0) / p.target_amount) * 100,
+        2
+      ) AS funding_progress,
+
+      COUNT(i.id) AS total_investments,
+
+      COUNT(DISTINCT i.investor_id) AS total_investors
+
+    FROM projects p
+
+    LEFT JOIN investments i
+      ON p.id = i.project_id
+
+    WHERE p.id = ?
+      AND p.status = 'approved'
+
+    GROUP BY
+      p.id,
+      p.title,
+      p.target_amount;
+  `;
+
+  db.query(query, [projectId], callback);
+};
+
 module.exports = {
   createInvestment,
   getApprovedProjectById,
   getMyInvestments,
+  getInvestmentSummary,
 };

@@ -96,7 +96,44 @@ const getMyInvestments = (req, res) => {
   });
 };
 
+const getInvestmentSummary = (req, res) => {
+  const projectId = req.params.id;
+
+  Investment.getInvestmentSummary(projectId, (error, results) => {
+    if (error) {
+      console.error("Get investment summary error:", error);
+
+      return res.status(500).json({
+        message: "Database error",
+      });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({
+        message: "Approved project not found",
+      });
+    }
+
+    const summary = results[0];
+
+    return res.status(200).json({
+      message: "Investment summary fetched successfully",
+      summary: {
+        project_id: summary.project_id,
+        title: summary.title,
+        target_amount: summary.target_amount,
+        collected_amount: summary.collected_amount,
+        remaining_amount: summary.remaining_amount,
+        funding_progress: Number(summary.funding_progress),
+        total_investments: summary.total_investments,
+        total_investors: summary.total_investors,
+      },
+    });
+  });
+};
+
 module.exports = {
   investInProject,
   getMyInvestments,
+  getInvestmentSummary,
 };
