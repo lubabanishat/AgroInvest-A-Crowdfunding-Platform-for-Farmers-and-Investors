@@ -68,10 +68,14 @@ const getInvestmentSummary = (projectId, callback) => {
 
       COALESCE(SUM(i.amount), 0) AS collected_amount,
 
-      (p.target_amount - COALESCE(SUM(i.amount), 0)) AS remaining_amount,
+      (
+        p.target_amount - COALESCE(SUM(i.amount), 0)
+      ) AS remaining_amount,
 
       ROUND(
-        (COALESCE(SUM(i.amount), 0) / p.target_amount) * 100,
+        (
+          COALESCE(SUM(i.amount), 0) / p.target_amount
+        ) * 100,
         2
       ) AS funding_progress,
 
@@ -83,6 +87,7 @@ const getInvestmentSummary = (projectId, callback) => {
 
     LEFT JOIN investments i
       ON p.id = i.project_id
+      AND i.payment_status = 'completed'
 
     WHERE p.id = ?
       AND p.status = 'approved'
@@ -106,10 +111,28 @@ const updatePaymentStatus = (investmentId, paymentStatus, callback) => {
   db.query(query, [paymentStatus, investmentId], callback);
 };
 
+const getInvestmentForPayment = (investmentId, investorId, callback) => {
+  const query = `
+    SELECT
+      id,
+      project_id,
+      investor_id,
+      amount,
+      payment_status
+    FROM investments
+    WHERE id = ?
+      AND investor_id = ?
+    LIMIT 1
+  `;
+
+  db.query(query, [investmentId, investorId], callback);
+};
+
 module.exports = {
   createInvestment,
   getApprovedProjectById,
   getMyInvestments,
   getInvestmentSummary,
   updatePaymentStatus,
+  getInvestmentForPayment,
 };

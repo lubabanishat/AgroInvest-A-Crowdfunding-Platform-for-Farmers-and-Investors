@@ -5,6 +5,7 @@ const {
   paymentSuccess,
   paymentFail,
   paymentCancel,
+  paymentIPN,
 } = require("../controllers/paymentController");
 
 const verifyToken = require("../middleware/authMiddleware");
@@ -22,5 +23,8 @@ router.post("/fail", paymentFail);
 
 // Payment Cancel Callback
 router.post("/cancel", paymentCancel);
+
+//payment ipn callback
+router.post("/ipn", paymentIPN);
 
 module.exports = router;
