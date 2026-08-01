@@ -1,0 +1,18 @@
+.hero-primary-btn,
+.hero-secondary-btn {
+  transition: all 0.25s ease;
+}
+
+.hero-primary-btn:hover {
+  background-color: #145a26 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(25, 111, 47, 0.25);
+}
+
+.hero-secondary-btn:hover {
+  background-color: #196f2f !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(25, 111, 47, 0.2);
+}

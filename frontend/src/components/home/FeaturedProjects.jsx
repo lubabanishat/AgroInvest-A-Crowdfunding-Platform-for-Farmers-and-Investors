@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./FeaturedProjects.css";
 
 function FeaturedProjects() {
   const projects = [
@@ -30,6 +31,7 @@ function FeaturedProjects() {
 
   return (
     <section
+      id="projects"
       aria-labelledby="featured-projects-heading"
       style={{
         backgroundColor: "#ffffff",
@@ -86,6 +88,7 @@ function FeaturedProjects() {
           {projects.map((project) => (
             <article
               key={project.id}
+              className="project-card"
               style={{
                 position: "relative",
                 flex: "0 0 360px",
@@ -98,19 +101,30 @@ function FeaturedProjects() {
                 overflow: "hidden",
               }}
             >
-              <img
-                src={project.image}
-                alt={project.title}
+              <div
+                className="project-image-wrapper"
                 style={{
                   position: "absolute",
                   top: 0,
                   left: 0,
                   width: "135px",
                   height: "170px",
-                  objectFit: "cover",
                   borderRadius: "10px",
+                  overflow: "hidden",
                 }}
-              />
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="project-image"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+              </div>
 
               <h3
                 style={{
@@ -201,6 +215,7 @@ function FeaturedProjects() {
 
               <Link
                 to={`/projects/${project.id}`}
+                className="view-btn"
                 style={{
                   position: "absolute",
                   top: "200px",

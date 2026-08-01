@@ -1,0 +1,109 @@
+.agro-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1050;
+  border-bottom: 1px solid #e8eee8;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.agro-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.agro-brand-name {
+  color: #1f8f4e;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.agro-brand-tagline {
+  color: #6c757d;
+  font-size: 10px;
+}
+
+.agro-nav-link {
+  position: relative;
+  color: #222222 !important;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+.agro-nav-link:hover,
+.agro-nav-link.active {
+  color: #168944 !important;
+}
+
+.agro-nav-link::after {
+  position: absolute;
+  right: 8px;
+  bottom: 2px;
+  left: 8px;
+  height: 2px;
+  content: "";
+  background-color: #168944;
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+}
+
+.agro-nav-link:hover::after,
+.agro-nav-link.active::after {
+  transform: scaleX(1);
+}
+
+.agro-login-btn,
+.agro-signup-btn {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+}
+
+.agro-login-btn:hover {
+  color: #ffffff;
+  background-color: #198754;
+  transform: translateY(-1px);
+}
+
+.agro-signup-btn:hover {
+  background-color: #146c43;
+  transform: translateY(-1px);
+}
+
+.agro-dropdown-menu {
+  min-width: 210px;
+  padding: 8px;
+  border: 1px solid #e8eee8;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.agro-dropdown-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.agro-dropdown-item:hover {
+  color: #196f2f;
+  background-color: #effbf0;
+}
+
+@media (max-width: 991px) {
+  .agro-navbar .navbar-collapse {
+    padding-top: 14px;
+    padding-bottom: 10px;
+  }
+
+  .agro-nav-link::after {
+    display: none;
+  }
+}

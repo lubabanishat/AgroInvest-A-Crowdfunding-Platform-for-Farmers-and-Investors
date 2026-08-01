@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import hero from "../../assets/images/Hero.jpeg";
+import "./Hero.css";
 
 function Hero() {
   return (
@@ -77,7 +78,7 @@ function Hero() {
             >
               <Link
                 to="/projects"
-                className="btn d-flex align-items-center justify-content-center"
+                className="btn d-flex align-items-center justify-content-center hero-primary-btn"
                 style={{
                   width: "169px",
                   height: "49px",
@@ -95,7 +96,7 @@ function Hero() {
 
               <Link
                 to="/projects"
-                className="btn d-flex align-items-center justify-content-center"
+                className="btn d-flex align-items-center justify-content-center hero-secondary-btn"
                 style={{
                   width: "213px",
                   height: "49px",

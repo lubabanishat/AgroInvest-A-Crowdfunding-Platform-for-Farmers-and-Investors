@@ -1,14 +1,22 @@
-import { Link } from "react-router-dom";
-import { FaUser, FaUserTie, FaSeedling } from "react-icons/fa";
+import { NavLink, Link } from "react-router-dom";
+import {
+  FaUser,
+  FaUserTie,
+  FaSeedling,
+  FaUserShield,
+} from "react-icons/fa";
+
 import logo from "../../assets/images/logo.png";
+import "./Navbar.css";
 
 function Navbar() {
+  const navLinkClass = ({ isActive }) =>
+    `nav-link agro-nav-link ${isActive ? "active" : ""}`;
+
   return (
-    <nav
-      className="navbar navbar-expand-lg bg-white shadow-sm"
-      style={{ borderBottom: "1px solid #e8eee8" }}
-    >
+    <nav className="navbar navbar-expand-lg bg-white agro-navbar">
       <div className="container py-2">
+        {/* Logo */}
         <Link
           className="navbar-brand d-flex align-items-center gap-2"
           to="/"
@@ -16,32 +24,21 @@ function Navbar() {
           <img
             src={logo}
             alt="AgroInvest Logo"
-            width="42"
-            height="42"
-            style={{ objectFit: "contain" }}
+            className="agro-logo"
           />
 
           <div>
-            <div
-              className="fw-bold"
-              style={{
-                color: "#1f8f4e",
-                fontSize: "28px",
-                lineHeight: "1",
-              }}
-            >
+            <div className="agro-brand-name">
               AgroInvest
             </div>
 
-            <small
-              className="text-muted"
-              style={{ fontSize: "10px" }}
-            >
+            <small className="agro-brand-tagline">
               Invest. Grow. Impact.
             </small>
           </div>
         </Link>
 
+        {/* Mobile Toggle */}
         <button
           className="navbar-toggler"
           type="button"
@@ -58,110 +55,136 @@ function Navbar() {
           className="collapse navbar-collapse"
           id="agroNavbar"
         >
-          <ul className="navbar-nav mx-auto align-items-lg-center gap-lg-3">
+          {/* Navigation */}
+          <ul className="navbar-nav mx-auto align-items-lg-center gap-lg-2">
             <li className="nav-item">
-              <Link
-                className="nav-link fw-semibold"
-                style={{ color: "#168944" }}
+              <NavLink
+                className={navLinkClass}
                 to="/"
+                end
               >
                 Home
-              </Link>
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link text-dark" to="/projects">
+              <NavLink
+                className={navLinkClass}
+                to="/projects"
+              >
                 Projects
-              </Link>
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link text-dark" href="#how-it-works">
+              <a
+                className="nav-link agro-nav-link"
+                href="/#how-it-works"
+              >
                 How It Works
               </a>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link text-dark" href="#about">
+              <NavLink
+                className={navLinkClass}
+                to="/about"
+              >
                 About Us
-              </a>
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link text-dark" href="#contact">
+              <NavLink
+                className={navLinkClass}
+                to="/contact"
+              >
                 Contact
-              </a>
+              </NavLink>
             </li>
           </ul>
 
-          <div className="d-flex align-items-center gap-2">
+          {/* Buttons */}
+          <div className="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+
+            {/* Login */}
             <div className="dropdown">
               <button
-                className="btn btn-outline-success btn-sm dropdown-toggle d-flex align-items-center gap-2 px-3 py-2"
+                className="btn btn-outline-success dropdown-toggle agro-login-btn"
                 type="button"
                 data-bs-toggle="dropdown"
-                aria-expanded="false"
               >
                 <FaUser size={13} />
-                Login
+                <span>Login</span>
               </button>
 
-              <ul className="dropdown-menu dropdown-menu-end">
+              <ul className="dropdown-menu dropdown-menu-end agro-dropdown-menu">
                 <li>
                   <Link
-                    className="dropdown-item d-flex align-items-center gap-2"
+                    className="dropdown-item agro-dropdown-item"
                     to="/login?role=investor"
                   >
                     <FaUserTie className="text-success" />
-                    Investor
+                    Investor Login
                   </Link>
                 </li>
 
                 <li>
                   <Link
-                    className="dropdown-item d-flex align-items-center gap-2"
+                    className="dropdown-item agro-dropdown-item"
                     to="/login?role=farmer"
                   >
                     <FaSeedling className="text-success" />
-                    Farmer
+                    Farmer Login
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    className="dropdown-item agro-dropdown-item"
+                    to="/admin/login"
+                  >
+                    <FaUserShield className="text-success" />
+                    Admin Login
                   </Link>
                 </li>
               </ul>
             </div>
 
+            {/* Sign Up */}
             <div className="dropdown">
               <button
-                className="btn btn-success btn-sm dropdown-toggle d-flex align-items-center gap-2 px-3 py-2"
+                className="btn btn-success dropdown-toggle agro-signup-btn"
                 type="button"
                 data-bs-toggle="dropdown"
-                aria-expanded="false"
               >
                 <FaUser size={13} />
-                Sign Up
+                <span>Sign Up</span>
               </button>
 
-              <ul className="dropdown-menu dropdown-menu-end">
+              <ul className="dropdown-menu dropdown-menu-end agro-dropdown-menu">
                 <li>
                   <Link
-                    className="dropdown-item d-flex align-items-center gap-2"
+                    className="dropdown-item agro-dropdown-item"
                     to="/register?role=investor"
                   >
                     <FaUserTie className="text-success" />
-                    Investor
+                    Investor Registration
                   </Link>
                 </li>
 
                 <li>
                   <Link
-                    className="dropdown-item d-flex align-items-center gap-2"
+                    className="dropdown-item agro-dropdown-item"
                     to="/register?role=farmer"
                   >
                     <FaSeedling className="text-success" />
-                    Farmer
+                    Farmer Registration
                   </Link>
                 </li>
               </ul>
             </div>
+
           </div>
         </div>
       </div>
