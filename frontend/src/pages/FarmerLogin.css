@@ -1,0 +1,479 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f7f8f5;
+}
+
+.farmer-login-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 40px 0;
+  background: #f7f8f5;
+}
+
+.farmer-login-container {
+  width: 1400px;
+  margin: 0 auto;
+}
+
+.farmer-login-content {
+  display: flex;
+  width: 100%;
+  height: 780px;
+  overflow: hidden;
+  background: #ffffff;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+/* Left panel */
+
+.farmer-left-panel {
+  position: relative;
+  width: 54%;
+  overflow: hidden;
+}
+
+.farmer-main-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 42% center;
+}
+.farmer-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.34)
+  );
+}
+
+.farmer-login-brand {
+  position: absolute;
+  top: 35px;
+  left: 38px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.farmer-login-logo {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.farmer-brand-text h2 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.farmer-agro-text {
+  color: #111111;
+}
+
+.farmer-invest-text {
+  color: #34c759;
+}
+
+.farmer-brand-text p {
+  margin: 5px 0 0;
+  color: #555555;
+  font-size: 12px;
+}
+
+.farmer-welcome-text {
+  position: absolute;
+  top: 150px;
+  left: 45px;
+  width: 420px;
+  z-index: 5;
+}
+
+.farmer-welcome-text h2 {
+  margin: 0;
+  color: #34c759;
+  font-size: 58px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.farmer-welcome-text h2 {
+  margin: -6px 0 0;
+  color: #34c759;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.farmer-welcome-text p {
+  margin-top: 20px;
+  color: #111111;
+  font-size: 22px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* Right panel */
+
+.farmer-right-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46%;
+  padding-left: 25px;
+  background: linear-gradient(
+    90deg,
+    #fffef7 0%,
+    #fffdf3 45%,
+    #fffbe9 100%
+  );
+}
+
+.farmer-login-card {
+  width: 510px;
+  padding: 38px 42px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.farmer-profile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto;
+  background: #ededed;
+  border-radius: 50%;
+}
+
+.farmer-profile-icon img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+
+.farmer-login-title {
+  margin: 24px 0 0;
+  color: #2e7d32;
+  font-size: 34px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.farmer-login-subtitle {
+  margin: 8px 0 35px;
+  color: #111111;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Form */
+
+.farmer-login-form {
+  width: 100%;
+}
+
+.farmer-form-field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 58px;
+  margin-bottom: 20px;
+  padding: 0 18px;
+  background: #f7f7f7;
+  border: 1px solid #cfcfcf;
+  border-radius: 10px;
+}
+
+.farmer-field-icon {
+  flex-shrink: 0;
+  color: #2e7d32;
+  font-size: 22px;
+}
+
+.farmer-form-field input {
+  flex: 1;
+  height: 100%;
+  margin-left: 14px;
+  color: #111111;
+  font-size: 17px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.farmer-form-field input::placeholder {
+  color: #666666;
+}
+
+.farmer-eye-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  color: #555555;
+  font-size: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.farmer-login-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0 24px;
+}
+
+.farmer-remember-label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.farmer-remember-label input {
+  width: 20px;
+  height: 20px;
+  accent-color: #238f3e;
+}
+
+.farmer-forgot-button {
+  color: #2e7d32;
+  font-size: 16px;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.farmer-login-button {
+  width: 100%;
+  height: 58px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
+  background: #238f3e;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.farmer-login-button:hover {
+  background: #196f2f;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(35, 143, 62, 0.24);
+}
+
+.farmer-or-divider {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin: 28px 0 20px;
+}
+
+.farmer-or-divider span {
+  flex: 1;
+  height: 2px;
+  background: #e1e1e1;
+}
+
+.farmer-or-divider p {
+  margin: 0;
+  color: #555555;
+  font-size: 16px;
+}
+
+.farmer-signup-section {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-height: 58px;
+  padding: 12px;
+  background: #f6f6f6;
+  border: 1px solid #cfcfcf;
+  border-radius: 10px;
+}
+
+.farmer-signup-section span,
+.farmer-signup-section a {
+  font-size: 15px;
+}
+
+.farmer-signup-section a {
+  color: #2e7d32;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Bottom benefits */
+
+.farmer-benefits-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 1400px;
+  min-height: 130px;
+  margin: 0 auto;
+  padding: 26px 55px;
+  background: #ffffff;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
+}
+
+.farmer-benefit {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.farmer-benefit img {
+  width: 62px;
+  height: 62px;
+  object-fit: contain;
+}
+
+.farmer-benefit p {
+  margin: 0;
+  color: #111111;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Responsive */
+
+@media (max-width: 1440px) {
+  .farmer-login-container,
+  .farmer-benefits-section {
+    width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 1100px) {
+  .farmer-login-content {
+    height: auto;
+    flex-direction: column;
+  }
+
+  .farmer-left-panel,
+  .farmer-right-panel {
+    width: 100%;
+  }
+
+  .farmer-left-panel {
+    min-height: 430px;
+  }
+
+  .farmer-right-panel {
+    padding: 40px 20px;
+  }
+
+  .farmer-login-card {
+    width: 100%;
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 768px) {
+  .farmer-login-page {
+    padding: 0;
+  }
+
+  .farmer-login-container,
+  .farmer-benefits-section {
+    width: 100%;
+  }
+
+  .farmer-login-content,
+  .farmer-benefits-section {
+    border-radius: 0;
+  }
+
+  .farmer-left-panel {
+    min-height: 360px;
+  }
+
+  .farmer-login-brand {
+    top: 20px;
+    left: 20px;
+  }
+
+  .farmer-login-logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .farmer-brand-text h2 {
+    font-size: 27px;
+  }
+
+  .farmer-welcome-text {
+    top: 130px;
+    left: 24px;
+  }
+
+  .farmer-welcome-text h1 {
+    font-size: 38px;
+  }
+
+  .farmer-welcome-text h2 {
+    font-size: 42px;
+  }
+
+  .farmer-welcome-text p {
+    margin-top: 24px;
+    font-size: 17px;
+  }
+
+  .farmer-right-panel {
+    padding: 30px 15px;
+  }
+
+  .farmer-login-card {
+    padding: 28px 20px;
+  }
+
+  .farmer-login-title {
+    font-size: 28px;
+  }
+
+  .farmer-login-subtitle {
+    font-size: 16px;
+  }
+
+  .farmer-login-options,
+  .farmer-signup-section {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .farmer-benefits-section {
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 30px;
+  }
+}

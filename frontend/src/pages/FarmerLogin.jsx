@@ -8,15 +8,15 @@ import {
 } from "react-icons/fa";
 
 import logo from "../assets/images/logo.png";
-import investorBg from "../assets/login/investor-bg.jpeg";
-import shieldIcon from "../assets/login/shield.png";
-import verifiedIcon from "../assets/login/verified.png";
-import progressIcon from "../assets/login/progress.png";
-import userIcon from "../assets/login/user.png";
+import farmerBg from "../assets/farmer-login/farmer-bg.png";
+import farmerUser from "../assets/farmer-login/farmer-user.png";
+import createProjectsIcon from "../assets/farmer-login/create-projects.png";
+import trackFundingIcon from "../assets/farmer-login/track-funding.png";
+import growTogetherIcon from "../assets/farmer-login/grow-together.png";
 
-import "./Login.css";
+import "./FarmerLogin.css";
 
-function Login() {
+function FarmerLogin() {
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -26,84 +26,83 @@ function Login() {
     event.preventDefault();
 
     const loginData = {
-      role: "investor",
+      role: "farmer",
       emailOrPhone,
       password,
       rememberMe,
     };
 
-    console.log("Investor login data:", loginData);
+    console.log("Farmer login data:", loginData);
   };
 
   return (
-    <main className="investor-login-page">
-      <div className="investor-login-container">
-        <section className="investor-login-content">
-          {/* Left image section */}
-          <div className="investor-left-panel">
+    <main className="farmer-login-page">
+      <div className="farmer-login-container">
+        <section className="farmer-login-content">
+          {/* Left side */}
+          <div className="farmer-left-panel">
             <img
-              src={investorBg}
-              alt="Agricultural investment"
-              className="investor-main-image"
+              src={farmerBg}
+              alt="Farmer working in an agricultural field"
+              className="farmer-main-image"
             />
 
-            <div className="investor-image-overlay" />
+            <div className="farmer-image-overlay" />
 
-            <Link to="/" className="investor-login-brand">
+            <Link to="/" className="farmer-login-brand">
               <img
                 src={logo}
                 alt="AgroInvest Logo"
-                className="investor-login-logo"
+                className="farmer-login-logo"
               />
 
-              <div className="investor-brand-text">
+              <div className="farmer-brand-text">
                 <h2>
-                  <span className="agro-text">Agro</span>
-                  <span className="invest-text">Invest</span>
+                  <span className="farmer-agro-text">Agro</span>
+                  <span className="farmer-invest-text">Invest</span>
                 </h2>
 
                 <p>Invest. Grow. Impact.</p>
               </div>
             </Link>
 
-            <div className="investor-welcome-text">
+            <div className="farmer-welcome-text">
               <h1>Welcome Back,</h1>
-
-              <h2>Investor</h2>
+              <h2>Farmer</h2>
 
               <p>
-                Invest in agriculture and
+                Manage your projects and
                 <br />
-                build a better future.
+                grow together.
               </p>
             </div>
           </div>
 
-          {/* Right login section */}
-          <div className="investor-right-panel">
-            <section className="investor-login-card">
-              <div className="investor-profile-icon">
+          {/* Right side */}
+          <div className="farmer-right-panel">
+            <section className="farmer-login-card">
+              <div className="farmer-profile-icon">
                 <img
-                  src={userIcon}
+                  src={farmerUser}
                   alt=""
                   aria-hidden="true"
                 />
               </div>
 
-              <h2 className="investor-login-title">
-                Investor Login
+              <h2 className="farmer-login-title">
+                Farmer Login
               </h2>
 
-              <p className="investor-login-subtitle">
-                Access your investment dashboard
+              <p className="farmer-login-subtitle">
+                Access your farmer dashboard
               </p>
 
               <form
-                className="investor-login-form"
+                className="farmer-login-form"
                 onSubmit={handleSubmit}
               >
-                <div className="investor-form-field">
-                  <FaEnvelope className="investor-field-icon" />
+                <div className="farmer-form-field">
+                  <FaEnvelope className="farmer-field-icon" />
 
                   <input
                     type="text"
@@ -118,8 +117,8 @@ function Login() {
                   />
                 </div>
 
-                <div className="investor-form-field">
-                  <FaLock className="investor-field-icon" />
+                <div className="farmer-form-field">
+                  <FaLock className="farmer-field-icon" />
 
                   <input
                     type={showPassword ? "text" : "password"}
@@ -135,7 +134,7 @@ function Login() {
 
                   <button
                     type="button"
-                    className="investor-eye-button"
+                    className="farmer-eye-button"
                     onClick={() =>
                       setShowPassword((currentValue) => !currentValue)
                     }
@@ -149,8 +148,8 @@ function Login() {
                   </button>
                 </div>
 
-                <div className="investor-login-options">
-                  <label className="investor-remember-label">
+                <div className="farmer-login-options">
+                  <label className="farmer-remember-label">
                     <input
                       type="checkbox"
                       checked={rememberMe}
@@ -164,7 +163,7 @@ function Login() {
 
                   <button
                     type="button"
-                    className="investor-forgot-button"
+                    className="farmer-forgot-button"
                     onClick={() =>
                       window.alert(
                         "Password recovery feature will be added later."
@@ -177,24 +176,22 @@ function Login() {
 
                 <button
                   type="submit"
-                  className="investor-login-button"
+                  className="farmer-login-button"
                 >
-                  Login as Investor
+                  Login as Farmer
                 </button>
 
-                <div className="investor-or-divider">
+                <div className="farmer-or-divider">
                   <span />
-
                   <p>or</p>
-
                   <span />
                 </div>
 
-                <div className="investor-signup-section">
+                <div className="farmer-signup-section">
                   <span>Don&apos;t have an account?</span>
 
-                  <Link to="/register?role=investor">
-                    Sign Up as Investor
+                  <Link to="/register?role=farmer">
+                    Sign Up as Farmer
                   </Link>
                 </div>
               </form>
@@ -204,40 +201,26 @@ function Login() {
 
         {/* Bottom benefits */}
         <section
-          className="investor-benefits-section"
-          aria-label="Investor benefits"
+          className="farmer-benefits-section"
+          aria-label="Farmer benefits"
         >
-          <article className="investor-benefit">
+          <article className="farmer-benefit">
             <img
-              src={shieldIcon}
+              src={createProjectsIcon}
               alt=""
               aria-hidden="true"
             />
 
             <p>
-              Secure
+              Create
               <br />
-              Investments
+              Projects
             </p>
           </article>
 
-          <article className="investor-benefit">
+          <article className="farmer-benefit">
             <img
-              src={verifiedIcon}
-              alt=""
-              aria-hidden="true"
-            />
-
-            <p>
-              Verified
-              <br />
-              Farmers
-            </p>
-          </article>
-
-          <article className="investor-benefit">
-            <img
-              src={progressIcon}
+              src={trackFundingIcon}
               alt=""
               aria-hidden="true"
             />
@@ -245,7 +228,21 @@ function Login() {
             <p>
               Track
               <br />
-              Progress
+              Funding
+            </p>
+          </article>
+
+          <article className="farmer-benefit">
+            <img
+              src={growTogetherIcon}
+              alt=""
+              aria-hidden="true"
+            />
+
+            <p>
+              Grow
+              <br />
+              Together
             </p>
           </article>
         </section>
@@ -254,4 +251,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default FarmerLogin;

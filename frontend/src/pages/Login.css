@@ -1,0 +1,494 @@
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f7f8f5;
+}
+
+/* =========================
+   LOGIN PAGE
+========================= */
+
+.investor-login-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 40px 0;
+  background: #f7f8f5;
+}
+
+.investor-login-container {
+  width: 1400px;
+  margin: 0 auto;
+}
+
+.investor-login-content {
+  display: flex;
+  width: 100%;
+  height: 780px;
+  overflow: hidden;
+  background: #ffffff;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================
+   LEFT PANEL
+========================= */
+
+.investor-left-panel {
+  position: relative;
+  width: 52%;
+  overflow: hidden;
+}
+
+.investor-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.investor-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.52)
+  );
+}
+
+.investor-login-brand {
+  position: absolute;
+  top: 35px;
+  left: 38px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.investor-login-logo {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.investor-brand-text h2 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.agro-text {
+  color: #111111;
+}
+
+.invest-text {
+  color: #34c759;
+}
+
+.investor-brand-text p {
+  margin: 5px 0 0;
+  color: #555555;
+  font-size: 12px;
+}
+
+.investor-welcome-text {
+  position: absolute;
+  top: 125px;
+  left: 48px;
+}
+
+.investor-welcome-text h1 {
+  margin: 0;
+  color: #111111;
+  font-size: 58px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.investor-welcome-text h2 {
+  margin: -6px 0 0;
+  color: #238f3e;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.investor-welcome-text p {
+  margin: 40px 0 0;
+  color: #111111;
+  font-size: 22px;
+  line-height: 1.8;
+}
+
+/* =========================
+   RIGHT PANEL
+========================= */
+
+.investor-right-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48%;
+  padding-left: 60px;
+  background: linear-gradient(
+    90deg,
+    #fffef7 0%,
+    #fffdf3 45%,
+    #fffbe9 100%
+  );
+}
+
+.investor-login-card {
+  width: 470px;
+  padding: 38px 42px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.investor-profile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto;
+  background: #ededed;
+  border-radius: 50%;
+}
+
+.investor-profile-icon img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.investor-login-title {
+  margin: 24px 0 0;
+  color: #2e7d32;
+  font-size: 34px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.investor-login-subtitle {
+  margin: 8px 0 35px;
+  color: #555555;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.investor-login-form {
+  width: 100%;
+}
+
+.investor-form-field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 58px;
+  margin-bottom: 20px;
+  padding: 0 18px;
+  background: #f7f7f7;
+  border: 1px solid #cfcfcf;
+  border-radius: 10px;
+}
+
+.investor-field-icon {
+  flex-shrink: 0;
+  color: #2e7d32;
+  font-size: 22px;
+}
+
+.investor-form-field input {
+  flex: 1;
+  height: 100%;
+  margin-left: 14px;
+  color: #111111;
+  font-size: 17px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.investor-form-field input::placeholder {
+  color: #666666;
+}
+
+.investor-eye-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  color: #555555;
+  font-size: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.investor-login-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0 24px;
+}
+
+.investor-remember-label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.investor-remember-label input {
+  width: 20px;
+  height: 20px;
+  accent-color: #238f3e;
+}
+
+.investor-forgot-button {
+  color: #2e7d32;
+  font-size: 16px;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.investor-login-button {
+  width: 100%;
+  height: 58px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
+  background: #238f3e;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.investor-login-button:hover {
+  background: #196f2f;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(35, 143, 62, 0.24);
+}
+
+.investor-or-divider {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin: 28px 0 20px;
+}
+
+.investor-or-divider span {
+  flex: 1;
+  height: 2px;
+  background: #e1e1e1;
+}
+
+.investor-or-divider p {
+  margin: 0;
+  color: #555555;
+  font-size: 16px;
+}
+
+.investor-signup-section {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-height: 58px;
+  padding: 12px;
+  background: #f6f6f6;
+  border: 1px solid #cfcfcf;
+  border-radius: 10px;
+}
+
+.investor-signup-section span,
+.investor-signup-section a {
+  font-size: 15px;
+}
+
+.investor-signup-section a {
+  color: #2e7d32;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* =========================
+   BOTTOM BENEFITS
+========================= */
+
+.investor-benefits-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 1400px;
+  min-height: 130px;
+  margin: 0 auto;
+  padding: 20px 45px;
+  background: #ffffff;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
+}
+
+.investor-benefit {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.investor-benefit img {
+  width: 62px;
+  height: 62px;
+  object-fit: contain;
+}
+
+.investor-benefit p {
+  margin: 0;
+  color: #111111;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1440px) {
+  .investor-login-container,
+  .investor-benefits-section {
+    width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 1100px) {
+  .investor-login-content {
+    height: auto;
+    flex-direction: column;
+  }
+
+  .investor-left-panel,
+  .investor-right-panel {
+    width: 100%;
+  }
+
+  .investor-left-panel {
+    min-height: 430px;
+  }
+
+  .investor-right-panel {
+    padding: 40px 20px;
+  }
+
+  .investor-login-card {
+    width: 100%;
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 768px) {
+  .investor-login-page {
+    padding: 0;
+  }
+
+  .investor-login-container,
+  .investor-benefits-section {
+    width: 100%;
+  }
+
+  .investor-login-content,
+  .investor-benefits-section {
+    border-radius: 0;
+  }
+
+  .investor-left-panel {
+    min-height: 360px;
+  }
+
+  .investor-login-brand {
+    top: 20px;
+    left: 20px;
+  }
+
+  .investor-login-logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .investor-brand-text h2 {
+    font-size: 27px;
+  }
+
+  .investor-welcome-text {
+    top: 130px;
+    left: 24px;
+  }
+
+  .investor-welcome-text h1 {
+    font-size: 38px;
+  }
+
+  .investor-welcome-text h2 {
+    font-size: 42px;
+  }
+
+  .investor-welcome-text p {
+    margin-top: 24px;
+    font-size: 17px;
+  }
+
+  .investor-right-panel {
+    padding: 30px 15px;
+  }
+
+  .investor-login-card {
+    padding: 28px 20px;
+  }
+
+  .investor-login-title {
+    font-size: 28px;
+  }
+
+  .investor-login-subtitle {
+    font-size: 16px;
+  }
+
+  .investor-login-options,
+  .investor-signup-section {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .investor-benefits-section {
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 30px;
+  }
+}

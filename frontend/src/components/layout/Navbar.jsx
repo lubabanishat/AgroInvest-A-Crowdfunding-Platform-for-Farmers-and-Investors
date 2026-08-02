@@ -16,6 +16,7 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-white agro-navbar">
       <div className="container py-2">
+
         {/* Logo */}
         <Link
           className="navbar-brand d-flex align-items-center gap-2"
@@ -55,8 +56,10 @@ function Navbar() {
           className="collapse navbar-collapse"
           id="agroNavbar"
         >
+
           {/* Navigation */}
           <ul className="navbar-nav mx-auto align-items-lg-center gap-lg-2">
+
             <li className="nav-item">
               <NavLink
                 className={navLinkClass}
@@ -102,13 +105,15 @@ function Navbar() {
                 Contact
               </NavLink>
             </li>
+
           </ul>
 
-          {/* Buttons */}
+          {/* Login & Signup */}
           <div className="d-flex align-items-center gap-2 mt-3 mt-lg-0">
 
             {/* Login */}
             <div className="dropdown">
+
               <button
                 className="btn btn-outline-success dropdown-toggle agro-login-btn"
                 type="button"
@@ -119,6 +124,7 @@ function Navbar() {
               </button>
 
               <ul className="dropdown-menu dropdown-menu-end agro-dropdown-menu">
+
                 <li>
                   <Link
                     className="dropdown-item agro-dropdown-item"
@@ -132,7 +138,7 @@ function Navbar() {
                 <li>
                   <Link
                     className="dropdown-item agro-dropdown-item"
-                    to="/login?role=farmer"
+                    to="/farmer/login"
                   >
                     <FaSeedling className="text-success" />
                     Farmer Login
@@ -148,11 +154,14 @@ function Navbar() {
                     Admin Login
                   </Link>
                 </li>
+
               </ul>
+
             </div>
 
             {/* Sign Up */}
             <div className="dropdown">
+
               <button
                 className="btn btn-success dropdown-toggle agro-signup-btn"
                 type="button"
@@ -163,6 +172,7 @@ function Navbar() {
               </button>
 
               <ul className="dropdown-menu dropdown-menu-end agro-dropdown-menu">
+
                 <li>
                   <Link
                     className="dropdown-item agro-dropdown-item"
@@ -182,10 +192,13 @@ function Navbar() {
                     Farmer Registration
                   </Link>
                 </li>
+
               </ul>
+
             </div>
 
           </div>
+
         </div>
       </div>
     </nav>
