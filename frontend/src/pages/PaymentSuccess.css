@@ -1,0 +1,222 @@
+/* =========================
+   PAYMENT SUCCESS PAGE
+========================= */
+
+.success-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 40px 20px 60px;
+  background: #f8faf7;
+  font-family: "Poppins", sans-serif;
+}
+
+.success-container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.success-header {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 86px;
+  height: 86px;
+  margin: 0 auto 18px;
+  color: #238f3e;
+  font-size: 38px;
+  background: #dff7e2;
+  border-radius: 50%;
+}
+
+.success-header h1 {
+  margin: 0 0 8px;
+  color: #111;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.success-header p {
+  margin: 0;
+  color: #666;
+  font-size: 15px;
+}
+
+/* =========================
+   DETAILS CARD
+========================= */
+
+.success-card {
+  padding: 26px;
+  margin-bottom: 24px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.06);
+}
+
+.success-card h2 {
+  margin: 0 0 18px;
+  font-size: 21px;
+  font-weight: 700;
+  color: #111;
+}
+
+.success-details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid #ececec;
+}
+
+.success-details-row:last-child {
+  border-bottom: none;
+}
+
+.success-details-row span {
+  color: #555;
+  font-size: 14px;
+}
+
+.success-details-row strong {
+  color: #111;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.success-project-name {
+  color: #238f3e !important;
+}
+
+.success-transaction {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.success-transaction button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  background: #effbf0;
+  color: #238f3e;
+  cursor: pointer;
+}
+
+.success-transaction button:hover {
+  background: #dff7e2;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.success-message {
+  padding: 22px;
+  margin-bottom: 26px;
+  text-align: center;
+  background: #effbf0;
+  border: 1px solid #bfe3c5;
+  border-radius: 10px;
+}
+
+.success-message strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #111;
+  font-size: 18px;
+}
+
+.success-message p {
+  margin: 0;
+  color: #555;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.success-primary-btn,
+.success-secondary-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 54px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: .2s;
+}
+
+.success-primary-btn {
+  background: #238f3e;
+  color: #fff;
+}
+
+.success-primary-btn:hover {
+  background: #196f2f;
+}
+
+.success-secondary-btn {
+  color: #238f3e;
+  background: #fff;
+  border: 2px solid #238f3e;
+}
+
+.success-secondary-btn:hover {
+  background: #effbf0;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width:640px){
+
+.success-page{
+padding:25px 14px 45px;
+}
+
+.success-card{
+padding:18px;
+}
+
+.success-header h1{
+font-size:28px;
+}
+
+.success-details-row{
+flex-direction:column;
+align-items:flex-start;
+gap:6px;
+}
+
+.success-transaction{
+flex-wrap:wrap;
+}
+
+}
