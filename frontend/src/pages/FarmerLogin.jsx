@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaEnvelope,
   FaEye,
@@ -17,6 +17,8 @@ import growTogetherIcon from "../assets/farmer-login/grow-together.png";
 import "./FarmerLogin.css";
 
 function FarmerLogin() {
+  const navigate = useNavigate();
+
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -33,6 +35,8 @@ function FarmerLogin() {
     };
 
     console.log("Farmer login data:", loginData);
+
+    navigate("/farmer/dashboard");
   };
 
   return (

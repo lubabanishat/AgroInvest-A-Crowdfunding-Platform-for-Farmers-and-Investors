@@ -1,0 +1,651 @@
+/* =========================
+   PAGE
+========================= */
+
+.farmer-dashboard-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 18px 0 35px;
+  background: #f6f7f5;
+  font-family: "Poppins", sans-serif;
+}
+
+.farmer-dashboard-container {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 16px;
+  align-items: stretch;
+  width: 96%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.farmer-dashboard-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+  width: 100%;
+  min-height: 100%;
+  padding: 16px 12px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+.farmer-sidebar-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.farmer-sidebar-logo img {
+  width: 145px;
+  height: 52px;
+  object-fit: contain;
+}
+
+.farmer-sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.farmer-sidebar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 40px;
+  padding: 10px 12px;
+  color: #666666;
+  font-size: 12px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.farmer-sidebar-menu a svg {
+  flex: 0 0 15px;
+  font-size: 14px;
+}
+
+.farmer-sidebar-menu a:hover {
+  color: #238f3e;
+  background: #edf9ef;
+}
+
+.farmer-sidebar-menu a.active {
+  color: #238f3e;
+  font-weight: 600;
+  background: #dff6e4;
+}
+
+.farmer-help-card {
+  padding: 16px 12px;
+  text-align: center;
+  background: #edf9ef;
+  border-radius: 8px;
+}
+
+.farmer-help-card > svg {
+  color: #238f3e;
+  font-size: 26px;
+}
+
+.farmer-help-card h3 {
+  margin: 8px 0 4px;
+  color: #238f3e;
+  font-size: 14px;
+}
+
+.farmer-help-card p {
+  margin: 0;
+  color: #666666;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.farmer-help-card button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px 10px;
+  color: #238f3e;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid #b9ddbf;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.farmer-dashboard-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.farmer-welcome {
+  padding: 0 8px 12px;
+}
+
+.farmer-welcome h1 {
+  margin: 0;
+  color: #111111;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.farmer-welcome p {
+  margin: 4px 0 0;
+  color: #666666;
+  font-size: 11px;
+}
+
+/* =========================
+   SUMMARY
+========================= */
+
+.farmer-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.farmer-summary-card,
+.farmer-dashboard-card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+.farmer-summary-card {
+  min-height: 160px;
+  padding: 16px;
+  text-align: center;
+}
+
+.farmer-summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 11px;
+  font-size: 22px;
+  border-radius: 50%;
+}
+
+.farmer-summary-icon.projects {
+  color: #1f9c49;
+  background: #dff5e4;
+}
+
+.farmer-summary-icon.investors {
+  color: #4a8df6;
+  background: #e3edff;
+}
+
+.farmer-summary-icon.raised {
+  color: #f0a800;
+  background: #fff0c8;
+}
+
+.farmer-summary-icon.profit {
+  color: #9d63e8;
+  background: #eee3ff;
+}
+
+.farmer-summary-card h3 {
+  margin: 0;
+  color: #444444;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.farmer-summary-card h2 {
+  margin: 6px 0 4px;
+  color: #111111;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.farmer-summary-card p {
+  margin: 0;
+  color: #666666;
+  font-size: 9px;
+}
+
+.farmer-summary-note {
+  margin: 10px 0 12px;
+  color: #777777;
+  font-size: 9px;
+}
+
+/* =========================
+   SECTION HEADER
+========================= */
+
+.farmer-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.farmer-section-header h2 {
+  margin: 0;
+  color: #111111;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.farmer-section-header a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #238f3e;
+  font-size: 10px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* =========================
+   PROJECTS
+========================= */
+
+.farmer-projects-card {
+  padding: 14px;
+}
+
+.farmer-project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.farmer-project-row {
+  display: grid;
+  grid-template-columns: 92px minmax(220px, 1.5fr) minmax(150px, 0.9fr) 90px;
+  gap: 12px;
+  align-items: center;
+  padding: 8px;
+  background: #f8f9f8;
+  border: 1px solid #e6e8e5;
+  border-radius: 6px;
+}
+
+.farmer-project-image {
+  width: 92px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.farmer-project-info {
+  min-width: 0;
+}
+
+.farmer-project-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.farmer-project-title-row h3 {
+  margin: 0;
+  color: #111111;
+  font-size: 12px;
+}
+
+.farmer-project-status {
+  padding: 3px 7px;
+  color: #238f3e;
+  font-size: 7px;
+  background: #dff6e4;
+  border-radius: 999px;
+}
+
+.farmer-project-status.pending {
+  color: #d78a00;
+  background: #fff1d2;
+}
+
+.farmer-project-info p,
+.farmer-project-info > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 4px 0 0;
+  color: #777777;
+  font-size: 8px;
+}
+
+.farmer-project-raised {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.farmer-project-raised small,
+.farmer-project-investors small {
+  color: #777777;
+  font-size: 8px;
+}
+
+.farmer-project-raised strong {
+  color: #333333;
+  font-size: 9px;
+}
+
+.farmer-project-progress {
+  width: 100%;
+  height: 7px;
+  overflow: hidden;
+  background: #e2e5e1;
+  border-radius: 999px;
+}
+
+.farmer-project-progress div {
+  height: 100%;
+  background: #238f3e;
+  border-radius: 999px;
+}
+
+.farmer-project-raised > span {
+  align-self: flex-end;
+  color: #666666;
+  font-size: 8px;
+}
+
+.farmer-project-investors {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.farmer-project-investors strong {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #555555;
+  font-size: 10px;
+}
+
+.farmer-project-investors a {
+  color: #238f3e;
+  font-size: 8px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* =========================
+   ACTIVITIES
+========================= */
+
+.farmer-activities-card {
+  margin-top: 14px;
+  padding: 14px;
+}
+
+.farmer-activities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.farmer-activity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 78px;
+  padding: 12px;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+}
+
+.farmer-activity-icon {
+  display: flex;
+  flex: 0 0 46px;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  font-size: 18px;
+  border-radius: 50%;
+}
+
+.farmer-activity-icon.green {
+  color: #238f3e;
+  background: #dff6e4;
+}
+
+.farmer-activity-icon.blue {
+  color: #4a8df6;
+  background: #e3edff;
+}
+
+.farmer-activity-icon.purple {
+  color: #9b5de5;
+  background: #f0e5ff;
+}
+
+.farmer-activity-icon.orange {
+  color: #f0a000;
+  background: #fff0cf;
+}
+
+.farmer-activity-item h4 {
+  margin: 0 0 3px;
+  color: #111111;
+  font-size: 11px;
+}
+
+.farmer-activity-item p {
+  margin: 0;
+  color: #666666;
+  font-size: 9px;
+}
+
+.farmer-activity-item span {
+  display: block;
+  margin-top: 4px;
+  color: #999999;
+  font-size: 8px;
+}
+
+/* =========================
+   BOTTOM
+========================= */
+
+.farmer-bottom-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.farmer-profit-card,
+.farmer-profile-card {
+  padding: 14px;
+}
+
+.farmer-section-header select {
+  height: 30px;
+  padding: 0 9px;
+  font-family: inherit;
+  font-size: 9px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+}
+
+.farmer-profit-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.farmer-profit-summary > div {
+  padding: 14px 10px;
+  text-align: center;
+  background: #f4faf5;
+  border-radius: 6px;
+}
+
+.farmer-profit-summary span {
+  display: block;
+  color: #666666;
+  font-size: 8px;
+}
+
+.farmer-profit-summary strong {
+  display: block;
+  margin: 6px 0 4px;
+  color: #238f3e;
+  font-size: 16px;
+}
+
+.farmer-profit-summary small {
+  color: #777777;
+  font-size: 7px;
+}
+
+.farmer-profit-note {
+  margin: 10px 0 0;
+  color: #888888;
+  font-size: 8px;
+}
+
+.farmer-profile-card h2 {
+  margin: 0 0 7px;
+  color: #238f3e;
+  font-size: 16px;
+}
+
+.farmer-profile-card p {
+  margin: 0;
+  color: #666666;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.farmer-profile-progress {
+  width: 100%;
+  height: 8px;
+  margin-top: 14px;
+  overflow: hidden;
+  background: #e2e5e1;
+  border-radius: 999px;
+}
+
+.farmer-profile-progress div {
+  height: 100%;
+  background: #238f3e;
+  border-radius: 999px;
+}
+
+.farmer-profile-card > span {
+  display: block;
+  margin-top: 5px;
+  color: #238f3e;
+  font-size: 9px;
+  text-align: right;
+}
+
+.farmer-profile-card button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px 10px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  background: #238f3e;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+  .farmer-dashboard-container {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+
+  .farmer-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .farmer-project-row {
+    grid-template-columns: 82px minmax(180px, 1fr) minmax(130px, 0.8fr);
+  }
+
+  .farmer-project-investors {
+    grid-column: 2 / -1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 820px) {
+  .farmer-dashboard-container {
+    grid-template-columns: 1fr;
+  }
+
+  .farmer-dashboard-sidebar {
+    min-height: auto;
+  }
+
+  .farmer-activities-grid,
+  .farmer-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .farmer-dashboard-page {
+    padding: 0;
+  }
+
+  .farmer-dashboard-container {
+    width: 100%;
+  }
+
+  .farmer-summary-grid,
+  .farmer-profit-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .farmer-project-row {
+    grid-template-columns: 1fr;
+  }
+
+  .farmer-project-image {
+    width: 100%;
+    height: 180px;
+  }
+
+  .farmer-project-investors {
+    grid-column: auto;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .farmer-welcome h1 {
+    font-size: 20px;
+  }
+}

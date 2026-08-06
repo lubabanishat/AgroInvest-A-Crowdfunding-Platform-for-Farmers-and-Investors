@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaEnvelope,
   FaEye,
@@ -17,6 +17,8 @@ import userIcon from "../assets/login/user.png";
 import "./Login.css";
 
 function Login() {
+  const navigate = useNavigate();
+
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -33,6 +35,8 @@ function Login() {
     };
 
     console.log("Investor login data:", loginData);
+
+    navigate("/investor/dashboard");
   };
 
   return (
@@ -184,9 +188,7 @@ function Login() {
 
                 <div className="investor-or-divider">
                   <span />
-
                   <p>or</p>
-
                   <span />
                 </div>
 

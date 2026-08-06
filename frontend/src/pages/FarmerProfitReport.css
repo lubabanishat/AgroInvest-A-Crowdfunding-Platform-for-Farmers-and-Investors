@@ -1,0 +1,169 @@
+/* =========================
+   PAGE
+========================= */
+
+.farmer-profit-report-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: #f6f8f4;
+  font-family: "Poppins", sans-serif;
+}
+
+.farmer-profit-report-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.farmer-profit-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  color: #238f3e;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.farmer-profit-back-button:hover {
+  color: #1c7232;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.farmer-profit-report-card {
+  padding: 35px;
+  background: #eef9ec;
+  border-radius: 12px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.farmer-profit-report-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.farmer-profit-report-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  color: #238f3e;
+  font-size: 32px;
+  background: #ffffff;
+  border-radius: 12px;
+}
+
+.farmer-profit-report-header h1 {
+  margin: 0;
+  color: #111111;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.farmer-profit-report-header p {
+  margin-top: 8px;
+  color: #555555;
+  font-size: 16px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.farmer-profit-report-table {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+}
+
+.farmer-profit-report-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid #ececec;
+}
+
+.farmer-profit-report-row:last-child {
+  border-bottom: none;
+}
+
+.farmer-profit-report-row span {
+  color: #333333;
+  font-size: 16px;
+}
+
+.farmer-profit-report-row strong {
+  color: #111111;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* =========================
+   SUCCESS
+========================= */
+
+.farmer-profit-success-message {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 18px 22px;
+  color: #238f3e;
+  background: #dff6e4;
+  border-radius: 10px;
+}
+
+.farmer-profit-success-message svg {
+  flex-shrink: 0;
+  font-size: 24px;
+}
+
+.farmer-profit-success-message p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .farmer-profit-report-card {
+    padding: 22px;
+  }
+
+  .farmer-profit-report-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .farmer-profit-report-header h1 {
+    font-size: 24px;
+  }
+
+  .farmer-profit-report-row {
+    padding: 15px;
+  }
+
+  .farmer-profit-report-row span,
+  .farmer-profit-report-row strong {
+    font-size: 14px;
+  }
+}
