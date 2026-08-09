@@ -20,6 +20,8 @@ import FarmerDashboard from "./pages/FarmerDashboard";
 import CreateProject from "./pages/CreateProject";
 import FarmerProfitReport from "./pages/FarmerProfitReport";
 
+import AdminDashboard from "./pages/AdminDashboard";
+
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
@@ -77,6 +79,12 @@ function App() {
         <Route
           path="/farmer/profit-report"
           element={<FarmerProfitReport />}
+        />
+
+        {/* Admin */}
+        <Route
+          path="/admin/dashboard"
+          element={<AdminDashboard />}
         />
 
         {/* Other Pages */}

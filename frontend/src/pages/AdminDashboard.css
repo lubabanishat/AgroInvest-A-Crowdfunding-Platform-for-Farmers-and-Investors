@@ -1,0 +1,753 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* =========================
+   ADMIN PAGE
+========================= */
+
+.ag-admin-page {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  background: #f3f5f2;
+  font-family: "Poppins", sans-serif;
+  color: #171717;
+}
+
+.ag-admin-shell {
+  display: grid;
+  grid-template-columns: 265px minmax(0, 1fr);
+  width: min(1320px, 100%);
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #f7f9f6;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.ag-admin-sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 22px 18px;
+  background: #157b35;
+  color: #ffffff;
+}
+
+/* =========================
+   BRAND
+========================= */
+
+.ag-admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 62px;
+  margin-bottom: 22px;
+  padding: 8px 7px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.ag-admin-brand-logo {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.ag-admin-brand-text {
+  min-width: 0;
+}
+
+.ag-admin-brand-text h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.ag-admin-brand-text h2 span {
+  color: #55d96f;
+}
+
+.ag-admin-brand-text p {
+  margin: 5px 0 0;
+  color: #d2ead7;
+  font-size: 7px;
+  line-height: 1;
+}
+
+/* =========================
+   SIDEBAR MENU
+========================= */
+
+.ag-admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ag-admin-nav a {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 48px;
+  padding: 0 14px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: 0.2s ease;
+}
+
+.ag-admin-nav a svg {
+  flex: 0 0 18px;
+  font-size: 18px;
+}
+
+.ag-admin-nav a.active {
+  background: #22a748;
+}
+
+.ag-admin-nav a:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ag-admin-nav-divider {
+  width: 100%;
+  height: 1px;
+  margin: 17px 0 5px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.ag-admin-content {
+  min-width: 0;
+  padding: 25px 25px 0;
+  background: #f8faf7;
+}
+
+/* =========================
+   HEADING
+========================= */
+
+.ag-admin-heading {
+  margin-bottom: 16px;
+}
+
+.ag-admin-heading h1 {
+  margin: 0;
+  color: #111111;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.ag-admin-heading p {
+  margin: 5px 0 0;
+  color: #686868;
+  font-size: 9px;
+}
+
+/* =========================
+   SUMMARY CARDS
+========================= */
+
+.ag-admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ag-admin-stats article {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 80px;
+  padding: 12px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.055);
+}
+
+.ag-stat-icon {
+  display: flex;
+  flex: 0 0 40px;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 17px;
+  border-radius: 50%;
+}
+
+.ag-stat-icon.green {
+  color: #249347;
+  background: #def5e4;
+}
+
+.ag-stat-icon.blue {
+  color: #4d83ed;
+  background: #e5edff;
+}
+
+.ag-stat-icon.purple {
+  color: #a458c3;
+  background: #f1e4f7;
+}
+
+.ag-stat-icon.yellow {
+  color: #d69b00;
+  background: #fff0c5;
+  font-weight: 700;
+}
+
+.ag-admin-stats span,
+.ag-admin-stats strong,
+.ag-admin-stats small {
+  display: block;
+}
+
+.ag-admin-stats span {
+  color: #666666;
+  font-size: 7px;
+}
+
+.ag-admin-stats strong {
+  margin: 2px 0;
+  color: #121212;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.ag-admin-stats small {
+  color: #238f45;
+  font-size: 6px;
+}
+
+/* =========================
+   COMMON PANEL
+========================= */
+
+.ag-admin-panel {
+  margin-bottom: 14px;
+  padding: 14px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.055);
+}
+
+.ag-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 7px;
+}
+
+.ag-panel-title h2 {
+  margin: 0;
+  color: #1c1c1c;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ag-panel-title button,
+.ag-panel-title select {
+  min-height: 25px;
+  padding: 0 9px;
+  color: #555555;
+  font-family: inherit;
+  font-size: 7px;
+  background: #ffffff;
+  border: 1px solid #d8dcd8;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.ag-table {
+  width: 100%;
+}
+
+.ag-table-head,
+.ag-table-row {
+  display: grid;
+  align-items: center;
+  gap: 8px;
+}
+
+.ag-table-head {
+  min-height: 28px;
+  padding: 0 7px;
+  color: #4e4e4e;
+  font-size: 7px;
+  font-weight: 600;
+  border-bottom: 1px solid #e1e5e1;
+}
+
+.ag-table-row {
+  min-height: 51px;
+  padding: 6px 7px;
+  color: #656565;
+  font-size: 7px;
+  border-bottom: 1px solid #e6e9e6;
+}
+
+.ag-table-row:last-child {
+  border-bottom: none;
+}
+
+.ag-farmer-table .ag-table-head,
+.ag-farmer-table .ag-table-row {
+  grid-template-columns:
+    1.35fr
+    0.78fr
+    0.88fr
+    0.52fr
+    0.5fr;
+}
+
+.ag-project-table .ag-table-head,
+.ag-project-table .ag-table-row {
+  grid-template-columns:
+    1.25fr
+    0.8fr
+    0.75fr
+    0.52fr
+    0.5fr;
+}
+
+.ag-report-table .ag-table-head,
+.ag-report-table .ag-table-row {
+  grid-template-columns:
+    1.25fr
+    0.75fr
+    0.85fr
+    0.35fr;
+}
+
+/* =========================
+   FARMER CELL
+========================= */
+
+.ag-farmer-cell,
+.ag-project-cell {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 8px;
+}
+
+.ag-avatar {
+  display: flex;
+  flex: 0 0 29px;
+  align-items: center;
+  justify-content: center;
+  width: 29px;
+  height: 29px;
+  color: #288e47;
+  font-size: 10px;
+  background: #e1f4e6;
+  border-radius: 50%;
+}
+
+.ag-farmer-cell strong,
+.ag-farmer-cell small {
+  display: block;
+}
+
+.ag-farmer-cell strong,
+.ag-project-cell strong {
+  color: #202020;
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.ag-farmer-cell small {
+  margin-top: 2px;
+  color: #8a8a8a;
+  font-size: 6px;
+}
+
+/* =========================
+   PROJECT IMAGES
+========================= */
+
+.ag-project-cell img {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.ag-pending {
+  width: fit-content;
+  padding: 4px 9px;
+  color: #c88600;
+  font-size: 6px;
+  background: #fff0c7;
+  border-radius: 999px;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.ag-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ag-row-actions button,
+.ag-view-report {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  background: #ffffff;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.ag-row-actions .accept {
+  color: #25a84c;
+  border: 1px solid #73cf89;
+}
+
+.ag-row-actions .reject {
+  color: #e45858;
+  border: 1px solid #ef9898;
+}
+
+.ag-view-report {
+  color: #555555;
+  border: 1px solid #ced3ce;
+}
+
+/* =========================
+   GREEN ACTION STRIP
+========================= */
+
+.ag-panel-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 31px;
+  margin-top: 7px;
+  padding: 0 11px;
+  color: #238f45;
+  font-family: inherit;
+  font-size: 7px;
+  font-weight: 600;
+  text-align: left;
+  background: #def4e3;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* =========================
+   OVERVIEW
+========================= */
+
+.ag-overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.ag-overview-card {
+  min-height: 230px;
+}
+
+/* =========================
+   FUNDING DONUT
+========================= */
+
+.ag-funding-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  min-height: 172px;
+}
+
+.ag-donut {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 108px;
+  height: 108px;
+  background:
+    conic-gradient(
+      #2f80ed 0 40%,
+      #27ae60 40% 76%,
+      #f5c242 76% 100%
+    );
+  border-radius: 50%;
+}
+
+.ag-donut > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 73px;
+  height: 73px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+.ag-donut strong {
+  color: #222222;
+  font-size: 19px;
+}
+
+.ag-donut span {
+  color: #777777;
+  font-size: 6px;
+}
+
+.ag-donut-legend {
+  min-width: 120px;
+}
+
+.ag-donut-legend p {
+  display: grid;
+  grid-template-columns: 8px 1fr;
+  column-gap: 7px;
+  margin: 9px 0;
+}
+
+.ag-donut-legend i {
+  grid-row: 1 / span 2;
+  align-self: center;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.blue-dot {
+  background: #2f80ed;
+}
+
+.green-dot {
+  background: #27ae60;
+}
+
+.yellow-dot {
+  background: #f5c242;
+}
+
+.ag-donut-legend span {
+  color: #444444;
+  font-size: 7px;
+  font-weight: 600;
+}
+
+.ag-donut-legend strong {
+  grid-column: 2;
+  color: #898989;
+  font-size: 6px;
+  font-weight: 400;
+}
+
+/* =========================
+   INVESTMENT OVERVIEW
+========================= */
+
+.ag-invest-total {
+  padding: 10px;
+  text-align: center;
+  background: #eaf7ed;
+  border-radius: 4px;
+}
+
+.ag-invest-total span,
+.ag-invest-total strong,
+.ag-invest-total small {
+  display: block;
+}
+
+.ag-invest-total span {
+  color: #777777;
+  font-size: 6px;
+}
+
+.ag-invest-total strong {
+  margin: 4px 0;
+  color: #138537;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.ag-invest-total small {
+  color: #4da665;
+  font-size: 6px;
+}
+
+.ag-line-chart {
+  height: 65px;
+  margin: 7px 0;
+  color: #4b9b5d;
+  overflow: hidden;
+}
+
+.ag-line-chart svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ag-invest-mini {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.ag-invest-mini > div {
+  padding: 9px 7px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.ag-invest-mini > div:first-child {
+  background: #e8f7ec;
+}
+
+.ag-invest-mini > div:last-child {
+  background: #fff1d4;
+}
+
+.ag-invest-mini span,
+.ag-invest-mini strong,
+.ag-invest-mini small {
+  display: block;
+}
+
+.ag-invest-mini span {
+  color: #777777;
+  font-size: 6px;
+}
+
+.ag-invest-mini strong {
+  margin: 3px 0;
+  color: #222222;
+  font-size: 14px;
+}
+
+.ag-invest-mini small {
+  color: #777777;
+  font-size: 5px;
+}
+
+/* =========================
+   REPORT
+========================= */
+
+.ag-report-panel {
+  margin-bottom: 0;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.ag-admin-footer {
+  margin: 15px -25px 0;
+  padding: 10px;
+  color: #ffffff;
+  font-size: 7px;
+  text-align: center;
+  background: #218d43;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1050px) {
+  .ag-admin-shell {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .ag-admin-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ag-overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ag-admin-brand-text h2 {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 760px) {
+  .ag-admin-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .ag-admin-sidebar {
+    min-height: auto;
+  }
+
+  .ag-admin-content {
+    padding: 17px 13px 0;
+  }
+
+  .ag-admin-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .ag-table {
+    overflow-x: auto;
+  }
+
+  .ag-table-head,
+  .ag-table-row {
+    min-width: 650px;
+  }
+
+  .ag-funding-wrap {
+    flex-direction: column;
+  }
+
+  .ag-admin-footer {
+    margin-left: -13px;
+    margin-right: -13px;
+  }
+}
