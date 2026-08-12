@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 import {
   FaFacebookF,
   FaLinkedinIn,
@@ -7,7 +8,28 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 
+
 function Footer() {
+
+  /* =========================
+     FOOTER CONTACT SCROLL
+  ========================= */
+
+  const handleContactClick = (event) => {
+    event.preventDefault();
+
+    const contactSection =
+      document.getElementById("contact");
+
+    if (contactSection) {
+      contactSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
+
   return (
     <footer
       style={{
@@ -17,11 +39,17 @@ function Footer() {
         marginTop: "70px",
       }}
     >
+
       <div className="container">
+
         <div className="row">
 
-          {/* Logo */}
+          {/* =========================
+              BRAND
+          ========================= */}
+
           <div className="col-lg-4 mb-4">
+
             <h2
               style={{
                 fontWeight: 700,
@@ -31,6 +59,7 @@ function Footer() {
               AgroInvest
             </h2>
 
+
             <p
               style={{
                 color: "#f4f4f4",
@@ -38,11 +67,15 @@ function Footer() {
                 lineHeight: "28px",
               }}
             >
-              Empowering farmers through crowdfunding and creating sustainable
-              investment opportunities for everyone.
+              Empowering farmers through
+              crowdfunding and creating
+              sustainable investment
+              opportunities for everyone.
             </p>
 
+
             <div className="d-flex gap-3 mt-4">
+
               <a
                 href="https://facebook.com"
                 target="_blank"
@@ -51,9 +84,11 @@ function Footer() {
                   color: "white",
                   fontSize: "22px",
                 }}
+                aria-label="Facebook"
               >
                 <FaFacebookF />
               </a>
+
 
               <a
                 href="https://linkedin.com"
@@ -63,20 +98,36 @@ function Footer() {
                   color: "white",
                   fontSize: "22px",
                 }}
+                aria-label="LinkedIn"
               >
                 <FaLinkedinIn />
               </a>
+
             </div>
+
           </div>
 
-          {/* Quick Links */}
+
+          {/* =========================
+              QUICK LINKS
+          ========================= */}
+
           <div className="col-lg-3 mb-4">
-            <h5 className="fw-bold mb-3">Quick Links</h5>
+
+            <h5 className="fw-bold mb-3">
+              Quick Links
+            </h5>
+
 
             <div className="d-flex flex-column gap-2">
-              <Link to="/" className="text-white text-decoration-none">
+
+              <Link
+                to="/"
+                className="text-white text-decoration-none"
+              >
                 Home
               </Link>
+
 
               <Link
                 to="/projects"
@@ -85,6 +136,7 @@ function Footer() {
                 Projects
               </Link>
 
+
               <Link
                 to="/about"
                 className="text-white text-decoration-none"
@@ -92,63 +144,115 @@ function Footer() {
                 About Us
               </Link>
 
-              <Link
-                to="/contact"
+
+              <a
+                href="#contact"
+                onClick={handleContactClick}
                 className="text-white text-decoration-none"
               >
                 Contact
-              </Link>
+              </a>
+
             </div>
+
           </div>
 
-          {/* Support */}
+
+          {/* =========================
+              SUPPORT
+          ========================= */}
+
           <div className="col-lg-2 mb-4">
-            <h5 className="fw-bold mb-3">Support</h5>
+
+            <h5 className="fw-bold mb-3">
+              Support
+            </h5>
+
 
             <div className="d-flex flex-column gap-2">
-              <a href="#" className="text-white text-decoration-none">
+
+              <a
+                href="#faqs"
+                className="text-white text-decoration-none"
+              >
                 FAQs
               </a>
 
-              <a href="#" className="text-white text-decoration-none">
+
+              <a
+                href="#privacy"
+                className="text-white text-decoration-none"
+              >
                 Privacy Policy
               </a>
 
-              <a href="#" className="text-white text-decoration-none">
+
+              <a
+                href="#terms"
+                className="text-white text-decoration-none"
+              >
                 Terms & Conditions
               </a>
+
             </div>
+
           </div>
 
-          {/* Contact */}
-          <div className="col-lg-3">
-            <h5 className="fw-bold mb-3">Contact</h5>
+
+          {/* =========================
+              CONTACT
+          ========================= */}
+
+          <div
+            className="col-lg-3"
+            id="contact"
+            style={{
+              scrollMarginTop: "100px",
+            }}
+          >
+
+            <h5 className="fw-bold mb-3">
+              Contact
+            </h5>
+
 
             <p>
               <FaEnvelope className="me-2" />
+
               info@agroinvest.com
             </p>
 
+
             <p>
               <FaPhone className="me-2" />
+
               +880 1234-567890
             </p>
 
+
             <p>
               <FaMapMarkerAlt className="me-2" />
+
               Dhaka, Bangladesh
             </p>
+
           </div>
+
         </div>
 
+
         <hr className="border-light my-4" />
+
 
         <div className="text-center">
           © 2026 AgroInvest. All Rights Reserved.
         </div>
+
       </div>
+
     </footer>
   );
 }
+
 
 export default Footer;

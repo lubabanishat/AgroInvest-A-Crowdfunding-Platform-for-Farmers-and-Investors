@@ -19,24 +19,75 @@ import "./FarmerLogin.css";
 function FarmerLogin() {
   const navigate = useNavigate();
 
-  const [emailOrPhone, setEmailOrPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (event) => {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const loginData = {
-      role: "farmer",
-      emailOrPhone,
-      password,
-      rememberMe,
-    };
+    setError("");
+    setLoading(true);
 
-    console.log("Farmer login data:", loginData);
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
 
-    navigate("/farmer/dashboard");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Login failed. Please try again."
+        );
+      }
+
+      if (data.user.role !== "farmer") {
+        throw new Error(
+          "This account is not registered as a farmer."
+        );
+      }
+
+      if (rememberMe) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem(
+          "user",
+          JSON.stringify(data.user)
+        );
+
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
+      } else {
+        sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem(
+          "user",
+          JSON.stringify(data.user)
+        );
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      }
+
+      navigate("/farmer/dashboard");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -62,17 +113,29 @@ function FarmerLogin() {
 
               <div className="farmer-brand-text">
                 <h2>
-                  <span className="farmer-agro-text">Agro</span>
-                  <span className="farmer-invest-text">Invest</span>
+                  <span className="farmer-agro-text">
+                    Agro
+                  </span>
+
+                  <span className="farmer-invest-text">
+                    Invest
+                  </span>
                 </h2>
 
-                <p>Invest. Grow. Impact.</p>
+                <p>
+                  Invest. Grow. Impact.
+                </p>
               </div>
             </Link>
 
             <div className="farmer-welcome-text">
-              <h1>Welcome Back,</h1>
-              <h2>Farmer</h2>
+              <h1>
+                Welcome Back,
+              </h1>
+
+              <h2>
+                Farmer
+              </h2>
 
               <p>
                 Manage your projects and
@@ -105,27 +168,33 @@ function FarmerLogin() {
                 className="farmer-login-form"
                 onSubmit={handleSubmit}
               >
+                {/* Email */}
                 <div className="farmer-form-field">
                   <FaEnvelope className="farmer-field-icon" />
 
                   <input
-                    type="text"
-                    name="emailOrPhone"
-                    placeholder="Email or Phone"
-                    value={emailOrPhone}
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={email}
                     onChange={(event) =>
-                      setEmailOrPhone(event.target.value)
+                      setEmail(event.target.value)
                     }
-                    autoComplete="username"
+                    autoComplete="email"
                     required
                   />
                 </div>
 
+                {/* Password */}
                 <div className="farmer-form-field">
                   <FaLock className="farmer-field-icon" />
 
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={
+                      showPassword
+                        ? "text"
+                        : "password"
+                    }
                     name="password"
                     placeholder="Password"
                     value={password}
@@ -140,7 +209,10 @@ function FarmerLogin() {
                     type="button"
                     className="farmer-eye-button"
                     onClick={() =>
-                      setShowPassword((currentValue) => !currentValue)
+                      setShowPassword(
+                        (currentValue) =>
+                          !currentValue
+                      )
                     }
                     aria-label={
                       showPassword
@@ -148,21 +220,30 @@ function FarmerLogin() {
                         : "Show password"
                     }
                   >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    {showPassword ? (
+                      <FaEyeSlash />
+                    ) : (
+                      <FaEye />
+                    )}
                   </button>
                 </div>
 
+                {/* Remember + Forgot */}
                 <div className="farmer-login-options">
                   <label className="farmer-remember-label">
                     <input
                       type="checkbox"
                       checked={rememberMe}
                       onChange={(event) =>
-                        setRememberMe(event.target.checked)
+                        setRememberMe(
+                          event.target.checked
+                        )
                       }
                     />
 
-                    <span>Remember me</span>
+                    <span>
+                      Remember me
+                    </span>
                   </label>
 
                   <button
@@ -178,11 +259,32 @@ function FarmerLogin() {
                   </button>
                 </div>
 
+                {/* Error */}
+                {error && (
+                  <div
+                    style={{
+                      marginBottom: "12px",
+                      padding: "9px 12px",
+                      color: "#b42318",
+                      fontSize: "12px",
+                      textAlign: "center",
+                      backgroundColor: "#fee4e2",
+                      borderRadius: "6px",
+                    }}
+                  >
+                    {error}
+                  </div>
+                )}
+
+                {/* Login Button */}
                 <button
                   type="submit"
                   className="farmer-login-button"
+                  disabled={loading}
                 >
-                  Login as Farmer
+                  {loading
+                    ? "Logging in..."
+                    : "Login as Farmer"}
                 </button>
 
                 <div className="farmer-or-divider">
@@ -192,7 +294,9 @@ function FarmerLogin() {
                 </div>
 
                 <div className="farmer-signup-section">
-                  <span>Don&apos;t have an account?</span>
+                  <span>
+                    Don&apos;t have an account?
+                  </span>
 
                   <Link to="/register?role=farmer">
                     Sign Up as Farmer

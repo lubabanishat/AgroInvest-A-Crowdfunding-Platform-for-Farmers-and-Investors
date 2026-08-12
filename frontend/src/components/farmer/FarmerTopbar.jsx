@@ -6,53 +6,66 @@ import {
 
 import "./FarmerTopbar.css";
 
-function FarmerTopbar() {
+function FarmerTopbar({ farmer }) {
+  const farmerName =
+    farmer?.full_name || "Farmer";
+
+  const farmerId =
+    farmer?.id
+      ? `FAR${String(farmer.id).padStart(4, "0")}`
+      : "FAR0000";
+
+  const firstLetter =
+    farmerName.charAt(0).toUpperCase();
+
   return (
-    <>
-      {/* Top White Bar */}
-      <header className="farmer-topbar">
+    <header className="farmer-topbar">
+
+      <button
+        className="farmer-menu-button"
+        type="button"
+        aria-label="Open Menu"
+      >
+        <FaBars />
+      </button>
+
+      <div className="farmer-topbar-right">
 
         <button
-          className="farmer-menu-button"
+          className="farmer-notification"
           type="button"
-          aria-label="Open Menu"
+          aria-label="Notifications"
         >
-          <FaBars />
+          <FaBell />
+
+          <span className="notification-badge">
+            1
+          </span>
         </button>
 
-        <div className="farmer-topbar-right">
+        <div className="farmer-user">
 
-          <button
-            className="farmer-notification"
-            type="button"
-          >
-            <FaBell />
-
-            <span className="notification-badge">
-              1
-            </span>
-          </button>
-
-          <div className="farmer-user">
-
-            <div className="farmer-avatar">
-              R
-            </div>
-
-            <div className="farmer-user-info">
-              <strong>Rahim</strong>
-
-              <span>ID: FAR1234</span>
-            </div>
-
-            <FaChevronDown className="farmer-arrow" />
-
+          <div className="farmer-avatar">
+            {firstLetter}
           </div>
+
+          <div className="farmer-user-info">
+            <strong>
+              {farmerName}
+            </strong>
+
+            <span>
+              ID: {farmerId}
+            </span>
+          </div>
+
+          <FaChevronDown className="farmer-arrow" />
 
         </div>
 
-      </header>
-    </>
+      </div>
+
+    </header>
   );
 }
 

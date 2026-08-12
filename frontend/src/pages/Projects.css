@@ -401,3 +401,52 @@ height:220px;
     border-color:#238f3e;
 
 }
+/* ==============================
+   COMPLETED PROJECT
+============================== */
+
+.project-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.project-title-row h2 {
+  margin: 0;
+}
+
+.project-completed-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 4px 10px;
+
+  background-color: #dcfce7;
+  color: #15803d;
+
+  border: 1px solid #86efac;
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.project-funded-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.project-status-text {
+  color: #15803d;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.project-card-completed {
+  border-color: #bbf7d0;
+}

@@ -17,23 +17,80 @@ import {
 function AdminLogin() {
   const navigate = useNavigate();
 
-  const [emailOrPhone, setEmailOrPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (event) => {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Temporary frontend login
-    // Later backend authentication can be added here.
-    navigate("/admin/dashboard");
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Login failed."
+        );
+      }
+
+      if (data.user.role !== "admin") {
+        throw new Error(
+          "This account is not an admin account."
+        );
+      }
+
+      if (rememberMe) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem(
+          "user",
+          JSON.stringify(data.user)
+        );
+
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
+      } else {
+        sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem(
+          "user",
+          JSON.stringify(data.user)
+        );
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      }
+
+      navigate("/admin/dashboard");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <main className="admin-login-page">
       <div className="admin-login-wrapper">
-
         {/* Left Side */}
         <div
           className="admin-left"
@@ -51,7 +108,6 @@ function AdminLogin() {
         {/* Right Side */}
         <div className="admin-right">
           <div className="admin-card">
-
             <div className="admin-user-circle">
               <img
                 src={adminUser}
@@ -66,17 +122,16 @@ function AdminLogin() {
             </p>
 
             <form onSubmit={handleSubmit}>
-
               {/* Email */}
               <div className="input-box">
                 <FaEnvelope />
 
                 <input
-                  type="text"
-                  placeholder="Email or Phone"
-                  value={emailOrPhone}
+                  type="email"
+                  placeholder="Email"
+                  value={email}
                   onChange={(event) =>
-                    setEmailOrPhone(event.target.value)
+                    setEmail(event.target.value)
                   }
                   required
                 />
@@ -87,7 +142,11 @@ function AdminLogin() {
                 <FaLock />
 
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={
+                    showPassword
+                      ? "text"
+                      : "password"
+                  }
                   placeholder="Password"
                   value={password}
                   onChange={(event) =>
@@ -100,7 +159,9 @@ function AdminLogin() {
                   type="button"
                   className="eye"
                   onClick={() =>
-                    setShowPassword(!showPassword)
+                    setShowPassword(
+                      !showPassword
+                    )
                   }
                   aria-label={
                     showPassword
@@ -123,7 +184,9 @@ function AdminLogin() {
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(event) =>
-                      setRememberMe(event.target.checked)
+                      setRememberMe(
+                        event.target.checked
+                      )
                     }
                   />
 
@@ -143,14 +206,33 @@ function AdminLogin() {
                 </button>
               </div>
 
+              {/* Error */}
+              {error && (
+                <div
+                  style={{
+                    marginBottom: "12px",
+                    padding: "9px 12px",
+                    color: "#b42318",
+                    fontSize: "12px",
+                    textAlign: "center",
+                    backgroundColor: "#fee4e2",
+                    borderRadius: "6px",
+                  }}
+                >
+                  {error}
+                </div>
+              )}
+
               {/* Login */}
               <button
                 type="submit"
                 className="admin-btn"
+                disabled={loading}
               >
-                Login
+                {loading
+                  ? "Logging in..."
+                  : "Login"}
               </button>
-
             </form>
           </div>
         </div>

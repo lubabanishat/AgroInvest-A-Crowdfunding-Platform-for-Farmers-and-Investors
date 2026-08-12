@@ -1,4 +1,10 @@
-import { NavLink, Link } from "react-router-dom";
+import {
+  NavLink,
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+
 import {
   FaUser,
   FaUserTie,
@@ -7,17 +13,68 @@ import {
 } from "react-icons/fa";
 
 import logo from "../../assets/images/logo.png";
+
 import "./Navbar.css";
 
+
 function Navbar() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const navLinkClass = ({ isActive }) =>
-    `nav-link agro-nav-link ${isActive ? "active" : ""}`;
+    `nav-link agro-nav-link ${
+      isActive ? "active" : ""
+    }`;
+
+
+  /* =========================
+     CONTACT SCROLL
+  ========================= */
+
+  const handleContactClick = (event) => {
+    event.preventDefault();
+
+    // If already on homepage
+    if (location.pathname === "/") {
+      const contactSection =
+        document.getElementById("contact");
+
+      if (contactSection) {
+        contactSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+
+      return;
+    }
+
+    // If user is on another page,
+    // go to homepage first
+    navigate("/#contact");
+
+    setTimeout(() => {
+      const contactSection =
+        document.getElementById("contact");
+
+      if (contactSection) {
+        contactSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }, 150);
+  };
+
 
   return (
     <nav className="navbar navbar-expand-lg bg-white agro-navbar">
       <div className="container py-2">
 
-        {/* Logo */}
+        {/* =========================
+            LOGO
+        ========================= */}
+
         <Link
           className="navbar-brand d-flex align-items-center gap-2"
           to="/"
@@ -39,7 +96,11 @@ function Navbar() {
           </div>
         </Link>
 
-        {/* Mobile Toggle */}
+
+        {/* =========================
+            MOBILE TOGGLE
+        ========================= */}
+
         <button
           className="navbar-toggler"
           type="button"
@@ -49,16 +110,22 @@ function Navbar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
+
 
         <div
           className="collapse navbar-collapse"
           id="agroNavbar"
         >
 
-          {/* Navigation */}
+          {/* =========================
+              NAVIGATION
+          ========================= */}
+
           <ul className="navbar-nav mx-auto align-items-lg-center gap-lg-2">
+
+            {/* HOME */}
 
             <li className="nav-item">
               <NavLink
@@ -70,6 +137,9 @@ function Navbar() {
               </NavLink>
             </li>
 
+
+            {/* PROJECTS */}
+
             <li className="nav-item">
               <NavLink
                 className={navLinkClass}
@@ -78,6 +148,9 @@ function Navbar() {
                 Projects
               </NavLink>
             </li>
+
+
+            {/* HOW IT WORKS */}
 
             <li className="nav-item">
               <a
@@ -88,30 +161,30 @@ function Navbar() {
               </a>
             </li>
 
-            <li className="nav-item">
-              <NavLink
-                className={navLinkClass}
-                to="/about"
-              >
-                About Us
-              </NavLink>
-            </li>
+
+            {/* CONTACT */}
 
             <li className="nav-item">
-              <NavLink
-                className={navLinkClass}
-                to="/contact"
+              <a
+                href="#contact"
+                className="nav-link agro-nav-link"
+                onClick={handleContactClick}
               >
                 Contact
-              </NavLink>
+              </a>
             </li>
 
           </ul>
 
-          {/* Login & Signup */}
+
+          {/* =========================
+              LOGIN & SIGNUP
+          ========================= */}
+
           <div className="d-flex align-items-center gap-2 mt-3 mt-lg-0">
 
-            {/* Login */}
+            {/* LOGIN */}
+
             <div className="dropdown">
 
               <button
@@ -120,8 +193,12 @@ function Navbar() {
                 data-bs-toggle="dropdown"
               >
                 <FaUser size={13} />
-                <span>Login</span>
+
+                <span>
+                  Login
+                </span>
               </button>
+
 
               <ul className="dropdown-menu dropdown-menu-end agro-dropdown-menu">
 
@@ -131,9 +208,11 @@ function Navbar() {
                     to="/login?role=investor"
                   >
                     <FaUserTie className="text-success" />
+
                     Investor Login
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
@@ -141,9 +220,11 @@ function Navbar() {
                     to="/farmer/login"
                   >
                     <FaSeedling className="text-success" />
+
                     Farmer Login
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
@@ -151,6 +232,7 @@ function Navbar() {
                     to="/admin/login"
                   >
                     <FaUserShield className="text-success" />
+
                     Admin Login
                   </Link>
                 </li>
@@ -159,7 +241,9 @@ function Navbar() {
 
             </div>
 
-            {/* Sign Up */}
+
+            {/* SIGN UP */}
+
             <div className="dropdown">
 
               <button
@@ -168,8 +252,12 @@ function Navbar() {
                 data-bs-toggle="dropdown"
               >
                 <FaUser size={13} />
-                <span>Sign Up</span>
+
+                <span>
+                  Sign Up
+                </span>
               </button>
+
 
               <ul className="dropdown-menu dropdown-menu-end agro-dropdown-menu">
 
@@ -179,9 +267,11 @@ function Navbar() {
                     to="/register?role=investor"
                   >
                     <FaUserTie className="text-success" />
+
                     Investor Registration
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
@@ -189,6 +279,7 @@ function Navbar() {
                     to="/register?role=farmer"
                   >
                     <FaSeedling className="text-success" />
+
                     Farmer Registration
                   </Link>
                 </li>
@@ -204,5 +295,6 @@ function Navbar() {
     </nav>
   );
 }
+
 
 export default Navbar;
