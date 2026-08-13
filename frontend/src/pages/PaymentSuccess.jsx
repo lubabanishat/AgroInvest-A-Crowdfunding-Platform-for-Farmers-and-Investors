@@ -1,4 +1,9 @@
-import { useMemo } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+
 import {
   Link,
   useSearchParams,
@@ -16,8 +21,20 @@ import Footer from "../components/layout/Footer";
 
 import "./PaymentSuccess.css";
 
+const API_URL =
+  "https://agroinvest-backend-q6hl.onrender.com/api";
+
 function PaymentSuccess() {
-  const [searchParams] = useSearchParams();
+  const [searchParams] =
+    useSearchParams();
+
+  // ==========================================
+  // URL Parameters
+  // ==========================================
+
+  const investmentId =
+    searchParams.get("investmentId") ||
+    "";
 
   const transactionId =
     searchParams.get("transactionId") ||
@@ -27,7 +44,11 @@ function PaymentSuccess() {
     searchParams.get("projectId") ||
     "";
 
-  const amount =
+  const investorId =
+    searchParams.get("investorId") ||
+    "";
+
+  const amountFromUrl =
     Number(
       searchParams.get("amount")
     ) || 0;
@@ -39,53 +60,132 @@ function PaymentSuccess() {
   const paymentDateRaw =
     searchParams.get("paymentDate");
 
-  const investorId =
-    searchParams.get("investorId") ||
-    "";
+  // ==========================================
+  // Investment Details From Database
+  // ==========================================
 
-  /* =========================
-     GET SAVED PAYMENT INFO
-  ========================= */
+  const [
+    investmentDetails,
+    setInvestmentDetails,
+  ] = useState(null);
 
-  const pendingInvestment = useMemo(() => {
-    try {
-      const saved =
-        sessionStorage.getItem(
-          "pendingInvestment"
+  const [
+    loading,
+    setLoading,
+  ] = useState(true);
+
+  // ==========================================
+  // Get Previously Saved Payment Info
+  // ==========================================
+
+  const pendingInvestment =
+    useMemo(() => {
+      try {
+        const saved =
+          sessionStorage.getItem(
+            "pendingInvestment"
+          );
+
+        return saved
+          ? JSON.parse(saved)
+          : null;
+      } catch (error) {
+        console.error(
+          "Pending investment parse error:",
+          error
         );
 
-      return saved
-        ? JSON.parse(saved)
-        : null;
-    } catch (error) {
-      console.error(
-        "Pending investment parse error:",
-        error
-      );
+        return null;
+      }
+    }, []);
 
-      return null;
-    }
-  }, []);
+  // ==========================================
+  // Fetch Actual Investment Details
+  // ==========================================
+
+  useEffect(() => {
+    const fetchInvestmentDetails =
+      async () => {
+        if (!investmentId) {
+          setLoading(false);
+          return;
+        }
+
+        try {
+          const response =
+            await fetch(
+              `${API_URL}/investments/${investmentId}`
+            );
+
+          const data =
+            await response.json();
+
+          if (!response.ok) {
+            throw new Error(
+              data.message ||
+                "Failed to load investment details."
+            );
+          }
+
+          setInvestmentDetails(
+            data.investment
+          );
+        } catch (error) {
+          console.error(
+            "Investment details fetch error:",
+            error
+          );
+        } finally {
+          setLoading(false);
+        }
+      };
+
+    fetchInvestmentDetails();
+  }, [investmentId]);
+
+  // ==========================================
+  // Actual Project Name
+  // ==========================================
 
   const projectName =
+    investmentDetails?.project_name ||
     pendingInvestment?.projectName ||
     (projectId
       ? `Project #${projectId}`
       : "Project");
 
+  // ==========================================
+  // Actual Investor Name
+  // ==========================================
+
   const investorName =
+    investmentDetails?.investor_name ||
     pendingInvestment?.investorName ||
     (investorId
       ? `Investor #${investorId}`
       : "Investor");
 
-  /* =========================
-     FORMAT PAYMENT DATE
-  ========================= */
+  // ==========================================
+  // Actual Investment Amount
+  // ==========================================
+
+  const amount =
+    Number(
+      investmentDetails?.amount
+    ) ||
+    amountFromUrl;
+
+  // ==========================================
+  // Format Payment Date
+  // ==========================================
 
   const formattedPaymentDate =
     useMemo(() => {
-      if (!paymentDateRaw) {
+      const dateValue =
+        paymentDateRaw ||
+        investmentDetails?.created_at;
+
+      if (!dateValue) {
         return new Date().toLocaleString(
           "en-GB",
           {
@@ -99,14 +199,14 @@ function PaymentSuccess() {
       }
 
       const date =
-        new Date(paymentDateRaw);
+        new Date(dateValue);
 
       if (
         Number.isNaN(
           date.getTime()
         )
       ) {
-        return paymentDateRaw;
+        return dateValue;
       }
 
       return date.toLocaleString(
@@ -119,11 +219,14 @@ function PaymentSuccess() {
           minute: "2-digit",
         }
       );
-    }, [paymentDateRaw]);
+    }, [
+      paymentDateRaw,
+      investmentDetails,
+    ]);
 
-  /* =========================
-     COPY TRANSACTION ID
-  ========================= */
+  // ==========================================
+  // Copy Transaction ID
+  // ==========================================
 
   const handleCopy = async () => {
     if (
@@ -141,7 +244,12 @@ function PaymentSuccess() {
       window.alert(
         "Transaction ID copied."
       );
-    } catch {
+    } catch (error) {
+      console.error(
+        "Copy error:",
+        error
+      );
+
       window.alert(
         "Could not copy the transaction ID."
       );
@@ -155,9 +263,7 @@ function PaymentSuccess() {
       <main className="success-page">
         <div className="success-container">
 
-          {/* =========================
-              HEADER
-          ========================= */}
+          {/* HEADER */}
 
           <section className="success-header">
             <div className="success-icon">
@@ -171,13 +277,12 @@ function PaymentSuccess() {
             </h1>
 
             <p>
-              Your investment has been successfully completed.
+              Your investment has been
+              successfully completed.
             </p>
           </section>
 
-          {/* =========================
-              PAYMENT DETAILS
-          ========================= */}
+          {/* PAYMENT DETAILS */}
 
           <section className="success-card">
             <h2>
@@ -190,7 +295,9 @@ function PaymentSuccess() {
               </span>
 
               <strong className="success-project-name">
-                {projectName}
+                {loading
+                  ? "Loading..."
+                  : projectName}
               </strong>
             </div>
 
@@ -200,7 +307,9 @@ function PaymentSuccess() {
               </span>
 
               <strong>
-                {investorName}
+                {loading
+                  ? "Loading..."
+                  : investorName}
               </strong>
             </div>
 
@@ -258,29 +367,28 @@ function PaymentSuccess() {
             </div>
           </section>
 
-          {/* =========================
-              MESSAGE
-          ========================= */}
+          {/* MESSAGE */}
 
           <section className="success-message">
             <strong>
-              Thank you for supporting agriculture!
+              Thank you for supporting
+              agriculture!
             </strong>
 
             <p>
-              You will start earning returns once the project is
-              completed. You can track your investment from your
+              You will start earning
+              returns once the project is
+              completed. You can track
+              your investment from your
               dashboard.
             </p>
           </section>
 
-          {/* =========================
-              ACTIONS
-          ========================= */}
+          {/* ACTION BUTTONS */}
 
           <div className="success-actions">
             <Link
-              to="/investor/dashboard"
+              to="/investor/my-investments"
               className="success-primary-btn"
             >
               Go to Investment

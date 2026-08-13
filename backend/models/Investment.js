@@ -23,8 +23,6 @@ const createInvestment = (investmentData, callback) => {
 
 // ==========================================
 // 2. Get Approved Project By ID
-// Used when making a NEW investment.
-// Completed projects should NOT accept investment.
 // ==========================================
 const getApprovedProjectById = (projectId, callback) => {
   const query = `
@@ -94,7 +92,6 @@ const getMyInvestments = (investorId, callback) => {
 
 // ==========================================
 // 4. Get Investment Summary
-// Approved + Completed projects supported
 // ==========================================
 const getInvestmentSummary = (projectId, callback) => {
   const query = `
@@ -192,6 +189,47 @@ const getInvestmentForPayment = (
 };
 
 // ==========================================
+// 7. Get Investment Details By ID
+// Used by Payment Success page
+// ==========================================
+const getInvestmentById = (
+  investmentId,
+  callback
+) => {
+  const query = `
+    SELECT
+      i.id,
+      i.project_id,
+      i.investor_id,
+      i.amount,
+      i.payment_status,
+      i.created_at,
+
+      p.title AS project_name,
+
+      u.full_name AS investor_name
+
+    FROM investments i
+
+    JOIN projects p
+      ON i.project_id = p.id
+
+    JOIN users u
+      ON i.investor_id = u.id
+
+    WHERE i.id = ?
+
+    LIMIT 1
+  `;
+
+  db.query(
+    query,
+    [investmentId],
+    callback
+  );
+};
+
+// ==========================================
 // Export
 // ==========================================
 module.exports = {
@@ -201,4 +239,5 @@ module.exports = {
   getInvestmentSummary,
   updatePaymentStatus,
   getInvestmentForPayment,
+  getInvestmentById,
 };
