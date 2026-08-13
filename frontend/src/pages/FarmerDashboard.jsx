@@ -41,7 +41,7 @@ import chilli from "../assets/farmer-dashboard/chilli.png";
 import "./FarmerDashboard.css";
 
 const API_URL =
-  "http://localhost:5000/api";
+  "https://agroinvest-backend-q6hl.onrender.com/api";
 
 /* =========================
    GET TOKEN

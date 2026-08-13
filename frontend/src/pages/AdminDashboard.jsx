@@ -29,7 +29,7 @@ import maizeImg from "../assets/admin-dashboard/maize.png";
 import "./AdminDashboard.css";
 
 const API_URL =
-  "http://localhost:5000/api";
+  "https://agroinvest-backend-q6hl.onrender.com/api";
 
 /* =========================
    PROJECT IMAGE HELPER

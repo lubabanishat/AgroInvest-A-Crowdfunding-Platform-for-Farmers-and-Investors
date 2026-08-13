@@ -110,7 +110,7 @@ function CreateProject() {
       */
 
       const projectResponse = await fetch(
-        "http://localhost:5000/api/projects/create",
+        "https://agroinvest-backend-q6hl.onrender.com/api/projects/create",
         {
           method: "POST",
 
@@ -180,7 +180,7 @@ function CreateProject() {
 
       const documentResponse =
         await fetch(
-          "http://localhost:5000/api/projects/upload-documents",
+          "https://agroinvest-backend-q6hl.onrender.com/api/projects/upload-documents",
           {
             method: "POST",
 

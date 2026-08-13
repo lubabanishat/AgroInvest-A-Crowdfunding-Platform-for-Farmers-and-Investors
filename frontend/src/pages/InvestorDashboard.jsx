@@ -44,7 +44,7 @@ import chilli from "../assets/investor-dashboard/chilli.png";
 
 import "./InvestorDashboard.css";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://agroinvest-backend-q6hl.onrender.com/api";
 
 /* =========================
    STATIC PROJECT UPDATES

@@ -29,8 +29,8 @@ import nid from "../assets/project-details/NID.png";
 
 import "./ProjectDetails.css";
 
-const API_URL = "http://localhost:5000/api";
-const BACKEND_URL = "http://localhost:5000";
+const API_URL = "https://agroinvest-backend-q6hl.onrender.com/api";
+const BACKEND_URL = "https://agroinvest-backend-q6hl.onrender.com";
 
 /* =========================
    STATIC UI INFORMATION

@@ -17,8 +17,8 @@ import sslcommerz from "../assets/payment/sslcommerz.png";
 
 import "./Payment.css";
 
-const API_URL = "http://localhost:5000/api";
-const BACKEND_URL = "http://localhost:5000";
+const API_URL = "https://agroinvest-backend-q6hl.onrender.com/api";
+const BACKEND_URL = "https://agroinvest-backend-q6hl.onrender.com";
 
 const quickAmounts = [
   5000,

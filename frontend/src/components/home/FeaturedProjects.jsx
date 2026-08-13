@@ -12,10 +12,10 @@ import riceImg from "../../assets/home-page/rice.png";
 import "./FeaturedProjects.css";
 
 const API_URL =
-  "http://localhost:5000/api";
+  "https://agroinvest-backend-q6hl.onrender.com/api";
 
 const BACKEND_URL =
-  "http://localhost:5000";
+  "https://agroinvest-backend-q6hl.onrender.com";
 
 
 /* =========================

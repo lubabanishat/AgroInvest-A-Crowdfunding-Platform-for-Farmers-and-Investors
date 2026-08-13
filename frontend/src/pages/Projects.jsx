@@ -74,7 +74,7 @@ function Projects() {
       try {
         // Get approved/completed projects
         const response = await fetch(
-          "http://localhost:5000/api/projects"
+          "https://agroinvest-backend-q6hl.onrender.com/api/projects"
         );
 
         const data = await response.json();
@@ -94,7 +94,7 @@ function Projects() {
           projectList.map(async (project) => {
             try {
               const summaryResponse = await fetch(
-                `http://localhost:5000/api/investments/summary/${project.id}`
+                `https://agroinvest-backend-q6hl.onrender.com/api/investments/summary/${project.id}`
               );
 
               const summaryData =
