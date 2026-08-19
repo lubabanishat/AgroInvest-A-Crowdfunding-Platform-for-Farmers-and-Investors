@@ -40,3 +40,15 @@ The objective of AgroInvest is to help farmers raise funds for agricultural proj
 ## Current Status
 
 UI/UX design and system diagrams are completed. Development will begin next.
+
+##  Live Deployment
+
+The AgroInvest application is deployed on Render.
+
+### Frontend
+https://agroinvest-frontend-i4fx.onrender.com
+
+### Backend
+https://agroinvest-backend-q6hl.onrender.com
+
+> Note: The payment system is integrated with SSLCommerz Sandbox for testing and demonstration purposes.
