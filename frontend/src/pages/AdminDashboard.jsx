@@ -28,11 +28,69 @@ import maizeImg from "../assets/admin-dashboard/maize.png";
 
 import "./AdminDashboard.css";
 
-const API_URL =
-  "https://agroinvest-backend-q6hl.onrender.com/api";
+/* =========================
+   DEPLOYED BACKEND
+========================= */
 
 const BACKEND_URL =
   "https://agroinvest-backend-q6hl.onrender.com";
+
+const API_URL =
+  `${BACKEND_URL}/api`;
+
+/* =========================
+   NORMALIZE BACKEND FILE URL
+========================= */
+
+const normalizeBackendUrl = (
+  value
+) => {
+  if (!value) {
+    return "";
+  }
+
+  let url = String(value)
+    .trim()
+    .replace(/\\/g, "/");
+
+  /*
+    Replace old localhost URL
+    with deployed Render backend.
+  */
+
+  url = url.replace(
+    /^https?:\/\/localhost:5000/i,
+    BACKEND_URL
+  );
+
+  url = url.replace(
+    /^https?:\/\/127\.0\.0\.1:5000/i,
+    BACKEND_URL
+  );
+
+  /*
+    Already a complete online URL.
+  */
+
+  if (
+    url.startsWith("http://") ||
+    url.startsWith("https://")
+  ) {
+    return url;
+  }
+
+  /*
+    Convert relative path:
+    uploads/nid/file.pdf
+    -> Render backend URL
+  */
+
+  url = url
+    .replace(/^\.?\//, "")
+    .replace(/^\/+/, "");
+
+  return `${BACKEND_URL}/${url}`;
+};
 
 /* =========================
    PROJECT IMAGE HELPER
@@ -41,25 +99,48 @@ const BACKEND_URL =
 const getProjectImage = (
   projectOrCrop = ""
 ) => {
+  /*
+    Use actual project image
+    if available.
+  */
+
   if (
-    typeof projectOrCrop === "object" &&
+    typeof projectOrCrop ===
+      "object" &&
     projectOrCrop !== null
   ) {
     if (
       projectOrCrop.land_image_url
     ) {
-      return projectOrCrop.land_image_url;
+      return normalizeBackendUrl(
+        projectOrCrop.land_image_url
+      );
+    }
+
+    if (
+      projectOrCrop.land_image
+    ) {
+      return normalizeBackendUrl(
+        projectOrCrop.land_image
+      );
     }
   }
+
+  /*
+    Fallback based on crop.
+  */
 
   const crop =
     typeof projectOrCrop === "string"
       ? projectOrCrop.toLowerCase()
       : String(
-          projectOrCrop?.crop_type || ""
+          projectOrCrop?.crop_type ||
+            ""
         ).toLowerCase();
 
-  if (crop.includes("rice")) {
+  if (
+    crop.includes("rice")
+  ) {
     return riceImg;
   }
 
@@ -68,7 +149,8 @@ const getProjectImage = (
     crop.includes("chilli") ||
     crop.includes("chili") ||
     crop.includes("tomato") ||
-    crop.includes("potato")
+    crop.includes("potato") ||
+    crop.includes("mango")
   ) {
     return vegetableImg;
   }
@@ -140,7 +222,10 @@ const getDocumentName = (
     return "Land Image";
   }
 
-  return documentType;
+  return (
+    documentType ||
+    "Document"
+  );
 };
 
 /* =========================
@@ -154,22 +239,66 @@ const getDocumentUrl = (
     return "#";
   }
 
-  if (document.file_path) {
-    const cleanPath =
-      String(
-        document.file_path
-      )
-        .replace(/\\/g, "/")
-        .replace(/^\/+/, "");
+  /*
+    1. Prefer backend-created
+       file_url if available.
+  */
 
-    return `${BACKEND_URL}/${cleanPath}`;
+  if (
+    document.file_url
+  ) {
+    return normalizeBackendUrl(
+      document.file_url
+    );
   }
 
-  if (document.file_url) {
-    return document.file_url.replace(
-      /^https?:\/\/localhost:5000/,
-      BACKEND_URL
+  /*
+    2. Use file_path stored
+       in database.
+  */
+
+  if (
+    document.file_path
+  ) {
+    return normalizeBackendUrl(
+      document.file_path
     );
+  }
+
+  /*
+    3. Last fallback:
+       build URL from filename
+       and document type.
+  */
+
+  if (
+    document.file_name
+  ) {
+    let folder = "";
+
+    if (
+      document.document_type ===
+      "NID"
+    ) {
+      folder =
+        "uploads/nid";
+    } else if (
+      document.document_type ===
+      "LAND_DEED"
+    ) {
+      folder =
+        "uploads/land-deed";
+    } else if (
+      document.document_type ===
+      "LAND_IMAGE"
+    ) {
+      folder =
+        "uploads/land-image";
+    }
+
+    if (folder) {
+      return `${BACKEND_URL}/${folder}/${document.file_name}`;
+    }
   }
 
   return "#";
@@ -248,8 +377,10 @@ function AdminDashboard() {
     setProcessingProjectId,
   ] = useState(null);
 
-  const [error, setError] =
-    useState("");
+  const [
+    error,
+    setError,
+  ] = useState("");
 
   const [
     successMessage,
@@ -281,7 +412,7 @@ function AdminDashboard() {
   ] = useState(null);
 
   /* =========================
-     DOCUMENT MODAL STATE
+     DOCUMENT MODAL
   ========================= */
 
   const [
@@ -342,7 +473,7 @@ function AdminDashboard() {
   };
 
   /* =========================
-     HANDLE UNAUTHORIZED
+     UNAUTHORIZED
   ========================= */
 
   const handleUnauthorized =
@@ -663,8 +794,7 @@ function AdminDashboard() {
   };
 
   /* =========================
-     COMPLETE PROJECT &
-     GENERATE REPORT
+     GENERATE PROFIT REPORT
   ========================= */
 
   const handleGenerateProfitReport =
@@ -743,9 +873,7 @@ function AdminDashboard() {
           )}?`
         );
 
-      if (
-        !confirmGenerate
-      ) {
+      if (!confirmGenerate) {
         return;
       }
 
@@ -846,7 +974,7 @@ function AdminDashboard() {
     };
 
   /* =========================
-     VIEW PROFIT SUMMARY
+     PROFIT SUMMARY
   ========================= */
 
   const handleViewProfitSummary =
@@ -879,15 +1007,19 @@ function AdminDashboard() {
     async (projectId) => {
       try {
         setError("");
+
         setDocumentsLoading(
           true
         );
+
         setProjectDocuments(
           []
         );
+
         setSelectedProject(
           null
         );
+
         setShowDocumentModal(
           true
         );
@@ -1005,6 +1137,7 @@ function AdminDashboard() {
             `${API_URL}/admin/farmers/${farmerId}/approve`,
             {
               method: "PUT",
+
               headers: {
                 Authorization:
                   `Bearer ${token}`,
@@ -1068,6 +1201,7 @@ function AdminDashboard() {
             `${API_URL}/admin/farmers/${farmerId}/reject`,
             {
               method: "PUT",
+
               headers: {
                 Authorization:
                   `Bearer ${token}`,
@@ -1131,6 +1265,7 @@ function AdminDashboard() {
             `${API_URL}/admin/projects/${projectId}/approve`,
             {
               method: "PUT",
+
               headers: {
                 Authorization:
                   `Bearer ${token}`,
@@ -1197,6 +1332,7 @@ function AdminDashboard() {
             `${API_URL}/admin/projects/${projectId}/reject`,
             {
               method: "PUT",
+
               headers: {
                 Authorization:
                   `Bearer ${token}`,
@@ -1240,6 +1376,7 @@ function AdminDashboard() {
 
   const handleLogout = () => {
     clearLogin();
+
     navigate("/");
   };
 
@@ -1250,6 +1387,7 @@ function AdminDashboard() {
         {/* SIDEBAR */}
 
         <aside className="ag-admin-sidebar">
+
           <Link
             to="/"
             className="ag-admin-brand"
@@ -1261,13 +1399,18 @@ function AdminDashboard() {
             />
 
             <div className="ag-admin-brand-text">
+
               <h2>
-                Agro<span>Invest</span>
+                Agro
+                <span>
+                  Invest
+                </span>
               </h2>
 
               <p>
                 Invest. Grow. Impact.
               </p>
+
             </div>
           </Link>
 
@@ -1275,6 +1418,7 @@ function AdminDashboard() {
             className="ag-admin-nav"
             aria-label="Admin navigation"
           >
+
             <Link
               className="active"
               to="/admin/dashboard"
@@ -1287,6 +1431,7 @@ function AdminDashboard() {
 
             <a href="#verify-farmers">
               <FaUserCheck />
+
               <span>
                 Verify Farmers
               </span>
@@ -1294,6 +1439,7 @@ function AdminDashboard() {
 
             <a href="#approve-projects">
               <FaClipboardCheck />
+
               <span>
                 Approve Projects
               </span>
@@ -1301,6 +1447,7 @@ function AdminDashboard() {
 
             <a href="#reports">
               <FaChartBar />
+
               <span>
                 Reports
               </span>
@@ -1308,6 +1455,7 @@ function AdminDashboard() {
 
             <a href="#manage-users">
               <FaUsers />
+
               <span>
                 Manage Users
               </span>
@@ -1315,6 +1463,7 @@ function AdminDashboard() {
 
             <a href="#settings">
               <FaCog />
+
               <span>
                 Settings
               </span>
@@ -1328,19 +1477,23 @@ function AdminDashboard() {
                 handleLogout
               }
               style={{
-                border: "none",
+                border:
+                  "none",
                 background:
                   "transparent",
                 cursor:
                   "pointer",
-                width: "100%",
+                width:
+                  "100%",
               }}
             >
               <FaSignOutAlt />
+
               <span>
                 Logout
               </span>
             </button>
+
           </nav>
         </aside>
 
@@ -1349,14 +1502,15 @@ function AdminDashboard() {
         <section className="ag-admin-content">
 
           <header className="ag-admin-heading">
+
             <h1>
               Admin Dashboard
             </h1>
 
             <p>
-              Welcome back, Admin! Here&apos;s
-              what&apos;s happening on AgroInvest.
+              Welcome back, Admin! Here&apos;s what&apos;s happening on AgroInvest.
             </p>
+
           </header>
 
           {error && (
@@ -1402,11 +1556,13 @@ function AdminDashboard() {
           <section className="ag-admin-stats">
 
             <article>
+
               <div className="ag-stat-icon green">
                 <FaUsers />
               </div>
 
               <div>
+
                 <span>
                   Total Farmers
                 </span>
@@ -1422,15 +1578,19 @@ function AdminDashboard() {
                     0}{" "}
                   pending
                 </small>
+
               </div>
+
             </article>
 
             <article>
+
               <div className="ag-stat-icon blue">
                 <FaUsers />
               </div>
 
               <div>
+
                 <span>
                   Total Investors
                 </span>
@@ -1444,15 +1604,19 @@ function AdminDashboard() {
                 <small>
                   Registered Investors
                 </small>
+
               </div>
+
             </article>
 
             <article>
+
               <div className="ag-stat-icon purple">
                 <FaClipboardCheck />
               </div>
 
               <div>
+
                 <span>
                   Approved Projects
                 </span>
@@ -1468,15 +1632,19 @@ function AdminDashboard() {
                     0}{" "}
                   pending
                 </small>
+
               </div>
+
             </article>
 
             <article>
+
               <div className="ag-stat-icon yellow">
                 <FaClipboardCheck />
               </div>
 
               <div>
+
                 <span>
                   Total Projects
                 </span>
@@ -1492,7 +1660,9 @@ function AdminDashboard() {
                     0}{" "}
                   completed
                 </small>
+
               </div>
+
             </article>
 
           </section>
@@ -1503,46 +1673,74 @@ function AdminDashboard() {
             id="verify-farmers"
             className="ag-admin-panel"
           >
+
             <div className="ag-panel-title">
+
               <h2>
                 Pending Farmer Verifications
               </h2>
+
             </div>
 
             <div className="ag-table ag-farmer-table">
 
               <div className="ag-table-head">
-                <span>Farmer</span>
-                <span>Email</span>
-                <span>Registered On</span>
-                <span>Status</span>
-                <span>Action</span>
+
+                <span>
+                  Farmer
+                </span>
+
+                <span>
+                  Email
+                </span>
+
+                <span>
+                  Registered On
+                </span>
+
+                <span>
+                  Status
+                </span>
+
+                <span>
+                  Action
+                </span>
+
               </div>
 
               {farmersLoading ? (
+
                 <div className="ag-empty-row">
                   Loading pending farmers...
                 </div>
+
               ) : pendingFarmers.length ===
                 0 ? (
+
                 <div className="ag-empty-row">
                   No pending farmers found.
                 </div>
+
               ) : (
+
                 pendingFarmers.map(
                   (farmer) => (
+
                     <div
                       className="ag-table-row"
                       key={
                         farmer.id
                       }
                     >
+
                       <div className="ag-farmer-cell">
+
                         <div className="ag-avatar">
                           <FaUsers />
                         </div>
 
                         <div>
+
                           <strong>
                             {
                               farmer.full_name
@@ -1551,9 +1749,13 @@ function AdminDashboard() {
 
                           <small>
                             Farmer ID:{" "}
-                            {farmer.id}
+                            {
+                              farmer.id
+                            }
                           </small>
+
                         </div>
+
                       </div>
 
                       <span>
@@ -1609,11 +1811,14 @@ function AdminDashboard() {
                         </button>
 
                       </div>
+
                     </div>
                   )
                 )
               )}
+
             </div>
+
           </section>
 
           {/* PROJECT VERIFICATION */}
@@ -1622,48 +1827,85 @@ function AdminDashboard() {
             id="approve-projects"
             className="ag-admin-panel"
           >
+
             <div className="ag-panel-title">
+
               <h2>
                 Pending Project Verifications
               </h2>
+
             </div>
 
             <div className="ag-table ag-project-table">
 
               <div className="ag-table-head">
-                <span>Project</span>
-                <span>Farmer</span>
-                <span>Goal Amount</span>
-                <span>Status</span>
-                <span>Action</span>
+
+                <span>
+                  Project
+                </span>
+
+                <span>
+                  Farmer
+                </span>
+
+                <span>
+                  Goal Amount
+                </span>
+
+                <span>
+                  Status
+                </span>
+
+                <span>
+                  Action
+                </span>
+
               </div>
 
               {projectsLoading ? (
+
                 <div className="ag-empty-row">
                   Loading pending projects...
                 </div>
+
               ) : pendingProjects.length ===
                 0 ? (
+
                 <div className="ag-empty-row">
                   No pending projects found.
                 </div>
+
               ) : (
+
                 pendingProjects.map(
                   (item) => (
+
                     <div
                       className="ag-table-row"
                       key={
                         item.id
                       }
                     >
+
                       <div className="ag-project-cell">
+
                         <img
-                          src={getProjectImage(
-                            item.crop_type
-                          )}
+                          src={
+                            getProjectImage(
+                              item
+                            )
+                          }
                           alt={
                             item.title
                           }
+                          onError={(
+                            event
+                          ) => {
+                            event.currentTarget.src =
+                              getProjectImage(
+                                item.crop_type
+                              );
+                          }}
                         />
 
                         <strong>
@@ -1671,6 +1913,7 @@ function AdminDashboard() {
                             item.title
                           }
                         </strong>
+
                       </div>
 
                       <span>
@@ -1738,11 +1981,14 @@ function AdminDashboard() {
                         </button>
 
                       </div>
+
                     </div>
                   )
                 )
               )}
+
             </div>
+
           </section>
 
           {/* PROFIT MANAGEMENT */}
@@ -1751,9 +1997,11 @@ function AdminDashboard() {
             id="reports"
             className="ag-admin-panel ag-report-panel"
           >
+
             <div className="ag-panel-title">
 
               <div>
+
                 <h2>
                   Profit Management & Reports
                 </h2>
@@ -1770,6 +2018,7 @@ function AdminDashboard() {
                 >
                   A project can be completed after reaching at least 70% funding.
                 </p>
+
               </div>
 
             </div>
@@ -1777,24 +2026,43 @@ function AdminDashboard() {
             <div className="ag-table ag-report-table">
 
               <div className="ag-table-head">
-                <span>Project</span>
-                <span>Total Investment</span>
-                <span>Revenue / Profit</span>
-                <span>Action</span>
+
+                <span>
+                  Project
+                </span>
+
+                <span>
+                  Total Investment
+                </span>
+
+                <span>
+                  Revenue / Profit
+                </span>
+
+                <span>
+                  Action
+                </span>
+
               </div>
 
               {profitLoading ? (
+
                 <div className="ag-empty-row">
                   Loading profit projects...
                 </div>
+
               ) : profitProjects.length ===
                 0 ? (
+
                 <div className="ag-empty-row">
                   No approved or completed projects found.
                 </div>
+
               ) : (
+
                 profitProjects.map(
                   (project) => {
+
                     const totalInvestment =
                       Number(
                         project.total_investment
@@ -1829,6 +2097,7 @@ function AdminDashboard() {
                       project.profit_distributed;
 
                     return (
+
                       <div
                         className="ag-table-row"
                         key={
@@ -1839,9 +2108,11 @@ function AdminDashboard() {
                         <div className="ag-project-cell">
 
                           <img
-                            src={getProjectImage(
-                              project
-                            )}
+                            src={
+                              getProjectImage(
+                                project
+                              )
+                            }
                             alt={
                               project.title
                             }
@@ -1856,6 +2127,7 @@ function AdminDashboard() {
                           />
 
                           <div>
+
                             <strong>
                               {
                                 project.title
@@ -1897,10 +2169,13 @@ function AdminDashboard() {
                                 ? "Completed"
                                 : `${fundingPercentage}% Funded`}
                             </small>
+
                           </div>
+
                         </div>
 
                         <div>
+
                           <strong>
                             {formatMoney(
                               project.total_investment
@@ -1922,10 +2197,13 @@ function AdminDashboard() {
                               project.target_amount
                             )}
                           </small>
+
                         </div>
 
                         {isCompleted ? (
+
                           <div>
+
                             <strong>
                               Revenue:{" "}
                               {formatMoney(
@@ -1948,8 +2226,11 @@ function AdminDashboard() {
                                 project.net_profit
                               )}
                             </small>
+
                           </div>
+
                         ) : isEligible ? (
+
                           <div
                             style={{
                               display:
@@ -1960,6 +2241,7 @@ function AdminDashboard() {
                                 "6px",
                             }}
                           >
+
                             <span>
                               ৳
                             </span>
@@ -1996,9 +2278,13 @@ function AdminDashboard() {
                                   "10px",
                               }}
                             />
+
                           </div>
+
                         ) : (
+
                           <div>
+
                             <strong
                               style={{
                                 color:
@@ -2020,11 +2306,14 @@ function AdminDashboard() {
                             >
                               Minimum 70% required
                             </small>
+
                           </div>
                         )}
 
                         <div>
+
                           {isCompleted ? (
+
                             <button
                               className="ag-view-report"
                               type="button"
@@ -2036,7 +2325,9 @@ function AdminDashboard() {
                             >
                               <FaEye />
                             </button>
+
                           ) : (
+
                             <button
                               type="button"
                               disabled={
@@ -2081,7 +2372,9 @@ function AdminDashboard() {
                                   ? "Complete & Generate"
                                   : "Funding Incomplete"}
                             </button>
+
                           )}
+
                         </div>
 
                       </div>
@@ -2089,18 +2382,22 @@ function AdminDashboard() {
                   }
                 )
               )}
+
             </div>
 
             <button
               className="ag-panel-link"
               type="button"
             >
+
               <span>
                 Farmer receives 70% and investors receive 30% of net profit
               </span>
 
               <FaArrowRight />
+
             </button>
+
           </section>
 
           <footer className="ag-admin-footer">
@@ -2108,17 +2405,20 @@ function AdminDashboard() {
           </footer>
 
         </section>
+
       </div>
 
       {/* PROJECT DOCUMENT MODAL */}
 
       {showDocumentModal && (
+
         <div
           className="ag-document-modal-overlay"
           onClick={
             closeDocumentModal
           }
         >
+
           <div
             className="ag-document-modal"
             onClick={(
@@ -2127,9 +2427,11 @@ function AdminDashboard() {
               event.stopPropagation()
             }
           >
+
             <div className="ag-document-modal-header">
 
               <div>
+
                 <h2>
                   Project Verification
                 </h2>
@@ -2137,6 +2439,7 @@ function AdminDashboard() {
                 <p>
                   Review project information and uploaded documents.
                 </p>
+
               </div>
 
               <button
@@ -2152,15 +2455,19 @@ function AdminDashboard() {
             </div>
 
             {documentsLoading ? (
+
               <div className="ag-document-loading">
                 Loading project documents...
               </div>
+
             ) : selectedProject ? (
+
               <>
 
                 <div className="ag-modal-project-info">
 
                   <div>
+
                     <span>
                       Project
                     </span>
@@ -2170,9 +2477,11 @@ function AdminDashboard() {
                         selectedProject.title
                       }
                     </strong>
+
                   </div>
 
                   <div>
+
                     <span>
                       Farmer
                     </span>
@@ -2182,9 +2491,11 @@ function AdminDashboard() {
                         selectedProject.farmer_name
                       }
                     </strong>
+
                   </div>
 
                   <div>
+
                     <span>
                       Farmer Email
                     </span>
@@ -2194,9 +2505,11 @@ function AdminDashboard() {
                         selectedProject.farmer_email
                       }
                     </strong>
+
                   </div>
 
                   <div>
+
                     <span>
                       Crop Type
                     </span>
@@ -2206,9 +2519,11 @@ function AdminDashboard() {
                         selectedProject.crop_type
                       }
                     </strong>
+
                   </div>
 
                   <div>
+
                     <span>
                       Goal Amount
                     </span>
@@ -2218,9 +2533,11 @@ function AdminDashboard() {
                         selectedProject.target_amount
                       )}
                     </strong>
+
                   </div>
 
                   <div>
+
                     <span>
                       Deadline
                     </span>
@@ -2230,12 +2547,15 @@ function AdminDashboard() {
                         selectedProject.deadline
                       )}
                     </strong>
+
                   </div>
 
                 </div>
 
                 {selectedProject.description && (
+
                   <div className="ag-modal-description">
+
                     <span>
                       Description
                     </span>
@@ -2245,6 +2565,7 @@ function AdminDashboard() {
                         selectedProject.description
                       }
                     </p>
+
                   </div>
                 )}
 
@@ -2256,61 +2577,73 @@ function AdminDashboard() {
 
                   {projectDocuments.length ===
                   0 ? (
+
                     <div className="ag-no-documents">
                       No documents were uploaded for this project.
                     </div>
+
                   ) : (
+
                     <div className="ag-document-list">
 
                       {projectDocuments.map(
-                        (document) => (
-                          <div
-                            className="ag-document-item"
-                            key={
-                              document.id
-                            }
-                          >
+                        (document) => {
 
-                            <div className="ag-document-icon">
-                              <FaFileAlt />
-                            </div>
+                          const documentUrl =
+                            getDocumentUrl(
+                              document
+                            );
 
-                            <div className="ag-document-details">
+                          return (
 
-                              <strong>
-                                {getDocumentName(
-                                  document.document_type
-                                )}
-                              </strong>
-
-                              <span>
-                                {
-                                  document.file_name
-                                }
-                              </span>
-
-                            </div>
-
-                            <a
-                              href={
-                                getDocumentUrl(
-                                  document
-                                )
+                            <div
+                              className="ag-document-item"
+                              key={
+                                document.id
                               }
-                              target="_blank"
-                              rel="noreferrer"
-                              className="ag-open-document"
                             >
-                              <FaExternalLinkAlt />
-                              Open
-                            </a>
 
-                          </div>
-                        )
+                              <div className="ag-document-icon">
+                                <FaFileAlt />
+                              </div>
+
+                              <div className="ag-document-details">
+
+                                <strong>
+                                  {getDocumentName(
+                                    document.document_type
+                                  )}
+                                </strong>
+
+                                <span>
+                                  {
+                                    document.file_name
+                                  }
+                                </span>
+
+                              </div>
+
+                              <a
+                                href={
+                                  documentUrl
+                                }
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="ag-open-document"
+                              >
+                                <FaExternalLinkAlt />
+
+                                Open
+                              </a>
+
+                            </div>
+                          );
+                        }
                       )}
 
                     </div>
                   )}
+
                 </div>
 
                 <div className="ag-modal-actions">
@@ -2329,6 +2662,7 @@ function AdminDashboard() {
                     }
                   >
                     <FaTimes />
+
                     Reject Project
                   </button>
 
@@ -2346,15 +2680,18 @@ function AdminDashboard() {
                     }
                   >
                     <FaCheck />
+
                     Approve Project
                   </button>
 
                 </div>
 
               </>
+
             ) : null}
 
           </div>
+
         </div>
       )}
 
