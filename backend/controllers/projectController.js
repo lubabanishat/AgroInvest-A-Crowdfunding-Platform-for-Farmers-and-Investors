@@ -23,7 +23,8 @@ const createProject = (req, res) => {
 
   if (role !== "farmer") {
     return res.status(403).json({
-      message: "Only farmers can create projects",
+      message:
+        "Only farmers can create projects",
     });
   }
 
@@ -73,28 +74,38 @@ const createProject = (req, res) => {
 
       if (results.length === 0) {
         return res.status(404).json({
-          message: "Farmer account not found",
+          message:
+            "Farmer account not found",
         });
       }
 
       const verificationStatus =
         results[0].verification_status;
 
-      if (verificationStatus === "pending") {
+      if (
+        verificationStatus ===
+        "pending"
+      ) {
         return res.status(403).json({
           message:
             "Your farmer account is still pending admin verification.",
         });
       }
 
-      if (verificationStatus === "rejected") {
+      if (
+        verificationStatus ===
+        "rejected"
+      ) {
         return res.status(403).json({
           message:
             "Your farmer account has been rejected. You cannot create a project.",
         });
       }
 
-      if (verificationStatus !== "approved") {
+      if (
+        verificationStatus !==
+        "approved"
+      ) {
         return res.status(403).json({
           message:
             "Your farmer account is not verified.",
@@ -108,7 +119,8 @@ const createProject = (req, res) => {
       const projectData = {
         farmer_id,
         title,
-        description: description || "",
+        description:
+          description || "",
         crop_type,
         target_amount,
         deadline,
@@ -131,6 +143,7 @@ const createProject = (req, res) => {
           return res.status(201).json({
             message:
               "Project created successfully",
+
             project: {
               id: result.insertId,
               farmer_id,
@@ -153,62 +166,105 @@ const createProject = (req, res) => {
    UPLOAD PROJECT DOCUMENTS
 ========================= */
 
-const uploadDocuments = async (req, res) => {
+const uploadDocuments = (
+  req,
+  res
+) => {
   try {
-    const { project_id } = req.body;
+    const { project_id } =
+      req.body;
 
     if (!project_id) {
       return res.status(400).json({
-        message: "Project ID is required",
+        message:
+          "Project ID is required",
       });
     }
 
     if (
       !req.files ||
-      Object.keys(req.files).length === 0
+      Object.keys(req.files)
+        .length === 0
     ) {
       return res.status(400).json({
-        message: "No files uploaded",
+        message:
+          "No files uploaded",
       });
     }
 
     const documents = [];
 
+    /* =========================
+       ADD DOCUMENT
+    ========================= */
+
     const addDocument = (
       fieldName,
-      documentType
+      documentType,
+      folderName
     ) => {
-      if (req.files[fieldName]) {
+      if (
+        req.files[fieldName] &&
+        req.files[fieldName][0]
+      ) {
         const file =
           req.files[fieldName][0];
 
+        /*
+          IMPORTANT:
+          Store relative URL path,
+          NOT Render's absolute file.path
+        */
+
+        const relativePath =
+          `uploads/${folderName}/${file.filename}`;
+
         documents.push({
           project_id,
-          document_type: documentType,
-          file_name: file.filename,
-          file_path: file.path,
+          document_type:
+            documentType,
+          file_name:
+            file.filename,
+          file_path:
+            relativePath,
         });
       }
     };
 
-    addDocument("nid", "NID");
     addDocument(
-      "land_deed",
-      "LAND_DEED"
-    );
-    addDocument(
-      "land_image",
-      "LAND_IMAGE"
+      "nid",
+      "NID",
+      "nid"
     );
 
-    if (documents.length === 0) {
+    addDocument(
+      "land_deed",
+      "LAND_DEED",
+      "land-deed"
+    );
+
+    addDocument(
+      "land_image",
+      "LAND_IMAGE",
+      "land-image"
+    );
+
+    if (
+      documents.length === 0
+    ) {
       return res.status(400).json({
         message:
           "No valid files uploaded",
       });
     }
 
+    /* =========================
+       SAVE DOCUMENTS TO DB
+    ========================= */
+
     let completed = 0;
+    let failed = false;
+
     const uploadedFiles = [];
 
     documents.forEach(
@@ -216,13 +272,21 @@ const uploadDocuments = async (req, res) => {
         Project.uploadDocument(
           documentData,
           (error) => {
+            if (failed) {
+              return;
+            }
+
             if (error) {
+              failed = true;
+
               console.error(
                 "Document upload database error:",
                 error
               );
 
-              if (!res.headersSent) {
+              if (
+                !res.headersSent
+              ) {
                 return res
                   .status(500)
                   .json({
@@ -237,11 +301,15 @@ const uploadDocuments = async (req, res) => {
             uploadedFiles.push({
               document_type:
                 documentData.document_type,
+
               file_name:
                 documentData.file_name,
+
+              file_path:
+                documentData.file_path,
             });
 
-            completed++;
+            completed += 1;
 
             if (
               completed ===
@@ -253,6 +321,7 @@ const uploadDocuments = async (req, res) => {
                 .json({
                   message:
                     "Documents uploaded successfully",
+
                   files:
                     uploadedFiles,
                 });
@@ -268,7 +337,8 @@ const uploadDocuments = async (req, res) => {
     );
 
     return res.status(500).json({
-      message: "Server error",
+      message:
+        "Server error while uploading documents",
     });
   }
 };
@@ -290,13 +360,15 @@ const getApprovedProjects = (
         );
 
         return res.status(500).json({
-          message: "Database error",
+          message:
+            "Database error",
         });
       }
 
       return res.status(200).json({
         message:
           "Approved projects fetched successfully",
+
         projects,
       });
     }
@@ -324,11 +396,14 @@ const getProjectById = (
         );
 
         return res.status(500).json({
-          message: "Database error",
+          message:
+            "Database error",
         });
       }
 
-      if (results.length === 0) {
+      if (
+        results.length === 0
+      ) {
         return res.status(404).json({
           message:
             "Project not found",
@@ -338,7 +413,9 @@ const getProjectById = (
       return res.status(200).json({
         message:
           "Project details fetched successfully",
-        project: results[0],
+
+        project:
+          results[0],
       });
     }
   );
