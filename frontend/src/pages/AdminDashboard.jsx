@@ -31,6 +31,9 @@ import "./AdminDashboard.css";
 const API_URL =
   "https://agroinvest-backend-q6hl.onrender.com/api";
 
+const BACKEND_URL =
+  "https://agroinvest-backend-q6hl.onrender.com";
+
 /* =========================
    PROJECT IMAGE HELPER
 ========================= */
@@ -38,11 +41,6 @@ const API_URL =
 const getProjectImage = (
   projectOrCrop = ""
 ) => {
-  /*
-    If full project object is passed,
-    first use actual uploaded image.
-  */
-
   if (
     typeof projectOrCrop === "object" &&
     projectOrCrop !== null
@@ -53,10 +51,6 @@ const getProjectImage = (
       return projectOrCrop.land_image_url;
     }
   }
-
-  /*
-    Fallback based on crop type.
-  */
 
   const crop =
     typeof projectOrCrop === "string"
@@ -147,6 +141,38 @@ const getDocumentName = (
   }
 
   return documentType;
+};
+
+/* =========================
+   DOCUMENT URL HELPER
+========================= */
+
+const getDocumentUrl = (
+  document
+) => {
+  if (!document) {
+    return "#";
+  }
+
+  if (document.file_path) {
+    const cleanPath =
+      String(
+        document.file_path
+      )
+        .replace(/\\/g, "/")
+        .replace(/^\/+/, "");
+
+    return `${BACKEND_URL}/${cleanPath}`;
+  }
+
+  if (document.file_url) {
+    return document.file_url.replace(
+      /^https?:\/\/localhost:5000/,
+      BACKEND_URL
+    );
+  }
+
+  return "#";
 };
 
 /* =========================
@@ -670,8 +696,6 @@ function AdminDashboard() {
               targetAmount
             ) * 100
           : 0;
-
-      /* 70% FUNDING CHECK */
 
       if (
         fundingPercentage < 70
@@ -1812,8 +1836,6 @@ function AdminDashboard() {
                         }
                       >
 
-                        {/* PROJECT */}
-
                         <div className="ag-project-cell">
 
                           <img
@@ -1878,8 +1900,6 @@ function AdminDashboard() {
                           </div>
                         </div>
 
-                        {/* INVESTMENT */}
-
                         <div>
                           <strong>
                             {formatMoney(
@@ -1903,8 +1923,6 @@ function AdminDashboard() {
                             )}
                           </small>
                         </div>
-
-                        {/* REVENUE */}
 
                         {isCompleted ? (
                           <div>
@@ -2004,8 +2022,6 @@ function AdminDashboard() {
                             </small>
                           </div>
                         )}
-
-                        {/* ACTION */}
 
                         <div>
                           {isCompleted ? (
@@ -2277,7 +2293,9 @@ function AdminDashboard() {
 
                             <a
                               href={
-                                document.file_url
+                                getDocumentUrl(
+                                  document
+                                )
                               }
                               target="_blank"
                               rel="noreferrer"
